@@ -38,7 +38,7 @@ def straight_Back(leftShoulder, rightShoulder, rightHip, leftHip):
 
     distLeft = distance_two_points(leftShoulder, leftHip)
 
-    if (distLeft + distRight < 0.40):
+    if (distLeft + distRight < 0.45):
         return True
     else:
         return False
@@ -84,6 +84,8 @@ def pushUpCounter():
             image.flags.writeable = True
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             
+
+
             # Extract landmarks
             try:
                 landmarks = results.pose_landmarks.landmark
@@ -124,7 +126,7 @@ def pushUpCounter():
                 if leftAngle < 90 and rightAngle < 90 and stage =='up': 
                     stage = "middle"
 
-                if leftAngle < 60 and rightAngle < 60 and stage =='middle': 
+                if leftAngle < 70 and rightAngle < 70 and stage =='middle': 
                     stage="down"
                     if straightBack:
                         counter +=1
@@ -147,7 +149,7 @@ def pushUpCounter():
             
             # Render curl counter
             # Setup status box
-            cv2.rectangle(image, (0,0), (225,73), (245,117,16), -1)
+            cv2.rectangle(image, (0,0), (300,73), (245,117,16), -1)
             
             # Rep data
             cv2.putText(image, 'REPS', (15,12), 
@@ -157,10 +159,10 @@ def pushUpCounter():
                         cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 2, cv2.LINE_AA)
             
             # Stage data
-            cv2.putText(image, 'STAGE', (65,12), 
+            cv2.putText(image, 'STAGE', (100,12), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 1, cv2.LINE_AA)
             cv2.putText(image, stage, 
-                        (60,60), 
+                        (100,60), 
                         cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 2, cv2.LINE_AA)
             
         
