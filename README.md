@@ -4,6 +4,6 @@
 
 ```
 pip install pygame
-pip install opencv
+pip install opencv-python
 pip install mediapose
 ```
