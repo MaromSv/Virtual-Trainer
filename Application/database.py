@@ -62,7 +62,7 @@ def remove_data(database, name):
 #
 # Argument: database - the database from which to remove data
 # 
-def close_database(database):
+def print_database(database):
     cursor = database.cursor()
 
     result = cursor.execute("SELECT * FROM Trainer")
