@@ -181,7 +181,7 @@ def pushUpCounter():
         cap.release()
         cv2.destroyAllWindows()
 
-path = "Application/database.db"
+path = "Assets/database.db"
 db = database.connect_database(path)
 database.create_table(db)
 database.print_database(db)
