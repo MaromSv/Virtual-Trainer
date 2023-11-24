@@ -38,7 +38,7 @@ def straight_Back(leftShoulder, rightShoulder, rightHip, leftHip):
 
     distLeft = distance_two_points(leftShoulder, leftHip)
 
-    if (distLeft + distRight < 0.45):
+    if (distLeft + distRight < 0.40):
         return True
     else:
         return False
@@ -126,7 +126,7 @@ def pushUpCounter():
                 if leftAngle < 90 and rightAngle < 90 and stage =='up': 
                     stage = "middle"
 
-                if leftAngle < 70 and rightAngle < 70 and stage =='middle': 
+                if leftAngle < 60 and rightAngle < 60 and stage =='middle': 
                     stage="down"
                     if straightBack:
                         counter +=1
