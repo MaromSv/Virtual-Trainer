@@ -2,7 +2,6 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import math
-# import pyttsx3
 import pygame
 
 
@@ -62,19 +61,45 @@ def playSound(file_path):
 #     engine.say(text)
 
 
+def pushUPLogic(leftAngle, rightAngle, stage, straightBack, counter):
+        # Curl counter logic
+    if leftAngle > 160 and rightAngle > 160:
+        if stage == "middle":
+            print("go lower")
+            playSound("Assets\\Audio\\goLower.mp3")
+        stage = "up"
 
+    if leftAngle < 90 and rightAngle < 90 and stage =='up': 
+        stage = "middle"
+
+    if leftAngle < 60 and rightAngle < 60 and stage =='middle': 
+        stage="down"
+        if straightBack:
+            counter +=1
+            print(counter)
+            audioPath = f"Assets\\Audio\\numbers\\{str(counter)}.mp3"
+            try:
+                playSound(audioPath)
+            except:
+                print("")
+        else:
+            print("Keep Your Back Straight")
+            playSound("Assets\Audio\keepBackStraightAudio.mp3")
+    return (stage, counter)
+
+
+    
 def pushUpCounter():
-
     cap = cv2.VideoCapture(0)
 
-    # Pushup counter variables
+    # Initialize Pushup counter variables
     counter = 0 
     stage = None
     straightBack = None
 
     ## Setup mediapipe instance
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
-        while cap.isOpened():
+        while cap.isOpened(): 
             ret, frame = cap.read()
             
             # Recolor image to RGB
@@ -88,8 +113,6 @@ def pushUpCounter():
             image.flags.writeable = True
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             
-
-
             # Extract landmarks
             try:
                 landmarks = results.pose_landmarks.landmark
@@ -119,31 +142,8 @@ def pushUpCounter():
                     tuple(np.multiply(rightElbow, [640, 480]).astype(int)), 
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                         )
-                
-                # Curl counter logic
-                if leftAngle > 160 and rightAngle > 160:
-                    if stage == "middle":
-                        print("go lower")
-                        playSound("Assets\\Audio\\goLower.mp3")
-                    stage = "up"
-
-                if leftAngle < 90 and rightAngle < 90 and stage =='up': 
-                    stage = "middle"
-
-                if leftAngle < 60 and rightAngle < 60 and stage =='middle': 
-                    stage="down"
-                    if straightBack:
-                        counter +=1
-                        print(counter)
-                        audioPath = f"Assets\\Audio\\numbers\\{str(counter)}.mp3"
-                        try:
-                            playSound(audioPath)
-                        except:
-                            print("")
-                    else:
-                        print("Keep Your Back Straight")
-                        playSound("Assets\Audio\keepBackStraightAudio.mp3")
                         
+                stage, counter = pushUPLogic(leftAngle, rightAngle, stage, straightBack, counter)
             except:
                 pass
             
@@ -184,7 +184,7 @@ def pushUpCounter():
 
 
 
-#Generator code:
-# gen = pushUpCounter()
-# while True:
-#     cv2.imshow('Pushup Counter', next(gen))
+# Generator code:
+gen = pushUpCounter()
+while True:
+    cv2.imshow('Pushup Counter', next(gen))
