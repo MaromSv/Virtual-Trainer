@@ -119,23 +119,15 @@ class VirtualTrainerApp:
     def start_pushup_counter(self):
         self.create_pushup_counter_page()
 
-        pushUpCounter()
-        # gen = pushUpCounter()
-        # # Convert the OpenCV image to a PhotoImage
+        reps = pushUpCounter()
+        minLeaderBoard = self.leaderboard.get_min_score()
 
-        # while True:
-        #     self.tk_image = self.convert_opencv_to_tkinter(next(gen))
-        #     self.image_label = ttk.Label(root, image=self.tk_image)
-        #     self.image_label.after(100)
-
-            
-        # # Create a label to display the image
-
-
-
-        # gen = pushUpCounter()
-        # while True:
-        #     cv2.imshow('Pushup Counter', next(gen))
+        lengthLeaderboard = len(self.leaderboard.get_leaderboard_data())
+        if reps > minLeaderBoard or lengthLeaderboard < 10:
+            print("You made it onto the leaderboard") #TODO: Replace with code to insert name and add entry to leaderboard
+        else:
+            print("You didnt quite make it onto the leaderboard, better luck next time")
+        
 
     def back_to_leaderboard(self):
         # Destroy the pushup_counter_frame

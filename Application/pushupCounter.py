@@ -45,18 +45,18 @@ def straight_Back(leftShoulder, rightShoulder, rightHip, leftHip):
     else:
         return False
 
-# def on_the_ground(rightThumb, leftThumb, rightHip, leftHip):
-#     rightThumbY = rightThumb[1]
-#     leftThumbY = leftThumb[1]
-#     rightHipY = rightHip[1] 
-#     leftHipY = leftHip[1]
+def on_the_ground(rightThumb, leftThumb, rightHip, leftHip):
+    rightThumbY = rightThumb[1]
+    leftThumbY = leftThumb[1]
+    rightHipY = rightHip[1] 
+    leftHipY = leftHip[1]
 
-#     distance = abs((rightThumbY + leftThumbY) - (rightHipY + leftHipY))
-#     print(distance)
-#     if (distance < 0.05):
-#         return True
-#     else:
-#         return False
+    distance = abs((rightThumbY + leftThumbY) - (rightHipY + leftHipY))
+    print(distance)
+    if (distance < 0.05):
+        return True
+    else:
+        return False
 
 def playSound(file_path):
     pygame.mixer.init()
@@ -74,8 +74,8 @@ def playSound(file_path):
 #     engine.say(text)
 
 def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
-    # if onGround:
-    #     print("Attempt Complete")
+    if onGround: #Code for if we want to make it number of pushups in a row
+        print("Attempt Complete")
 
     if leftAngle > 160 and rightAngle > 160:
         if stage == "middle":
@@ -170,7 +170,7 @@ def pushUpCounter():
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                         )
                 
-                # onGround = on_the_ground(rightThumb, leftThumb, rightHip, leftHip)
+                onGround = on_the_ground(rightThumb, leftThumb, rightHip, leftHip)
 
                 # Curl counter logic
                 stage, counter = pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround)
@@ -237,5 +237,5 @@ def pushUpCounter():
 # database.print_database(db)
 # database.close_database(db)
 
-reps = pushUpCounter()
-print(reps)
+# reps = pushUpCounter()
+# print(reps)
