@@ -2,8 +2,9 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import math
+# import pyttsx3
 import pygame
-
+import database
 
 
 mp_drawing = mp.solutions.drawing_utils
@@ -60,9 +61,7 @@ def playSound(file_path):
 #     # Speak the given text
 #     engine.say(text)
 
-
-def pushUPLogic(leftAngle, rightAngle, stage, straightBack, counter):
-        # Curl counter logic
+def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter):
     if leftAngle > 160 and rightAngle > 160:
         if stage == "middle":
             print("go lower")
@@ -85,23 +84,23 @@ def pushUPLogic(leftAngle, rightAngle, stage, straightBack, counter):
         else:
             print("Keep Your Back Straight")
             playSound("Assets\Audio\keepBackStraightAudio.mp3")
-    return (stage, counter)
+    return stage, counter
 
-
-    
 def pushUpCounter():
+
     cap = cv2.VideoCapture(0)
 
-    # Initialize Pushup counter variables
+    # Pushup counter variables
     counter = 0 
     stage = None
     straightBack = None
 
     ## Setup mediapipe instance
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
-        while cap.isOpened(): 
+        while cap.isOpened():
             ret, frame = cap.read()
             
+            frame = frame[0:820, 0:600]
             # Recolor image to RGB
             image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image.flags.writeable = False
@@ -113,6 +112,8 @@ def pushUpCounter():
             image.flags.writeable = True
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             
+
+
             # Extract landmarks
             try:
                 landmarks = results.pose_landmarks.landmark
@@ -142,15 +143,18 @@ def pushUpCounter():
                     tuple(np.multiply(rightElbow, [640, 480]).astype(int)), 
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                         )
+                
+                
+                # Curl counter logic
+                stage, counter = pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter)
                         
-                stage, counter = pushUPLogic(leftAngle, rightAngle, stage, straightBack, counter)
             except:
                 pass
             
             
             # Render curl counter
             # Setup status box
-            cv2.rectangle(image, (0,0), (300,73), (245,117,16), -1)
+            cv2.rectangle(image, (0,0), (200,50), (245,117,16), -1)
             
             # Rep data
             cv2.putText(image, 'REPS', (15,12), 
@@ -172,9 +176,9 @@ def pushUpCounter():
                                     mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
                                     mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2) 
                                     )               
+            # image = cv2.resize(image, (600, 800))
+            cv2.imshow('Pushup Counter', image)
 
-
-            yield image #Return a generator -> So that we can display the image on the interface
             if cv2.waitKey(10) & 0xFF == ord('q'):
                 break
 
@@ -182,9 +186,16 @@ def pushUpCounter():
         cap.release()
         cv2.destroyAllWindows()
 
+# path = "Assets/database.db"
+# db = database.connect_database(path)
+# database.create_table(db)
+# database.print_database(db)
+# database.insert_data(db, "Danick", "100")
+# database.insert_data(db, "Marom", "150")
+# database.print_database(db)
+# database.remove_data(db, "Danick")
+# database.remove_data(db, "Marom")
+# database.print_database(db)
+# database.close_database(db)
 
-
-# Generator code:
-gen = pushUpCounter()
-while True:
-    cv2.imshow('Pushup Counter', next(gen))
+pushUpCounter()

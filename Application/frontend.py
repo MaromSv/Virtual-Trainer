@@ -10,7 +10,7 @@ class VirtualTrainerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Virtual Trainer App")
-        self.root.geometry("600x800")  # Adjusted for a tablet-sized screen
+        self.root.geometry("600x820")  # Adjusted for a tablet-sized screen
 
         # Apply a themed style
         self.style = ThemedStyle(self.root)
@@ -118,23 +118,24 @@ class VirtualTrainerApp:
     
     def start_pushup_counter(self):
         self.create_pushup_counter_page()
-       
-        gen = pushUpCounter()
-        # Convert the OpenCV image to a PhotoImage
 
-        while True:
-            self.tk_image = self.convert_opencv_to_tkinter(next(gen))
-            self.image_label = ttk.Label(root, image=self.tk_image)
-            self.image_label.after(100)
+        pushUpCounter()
+        # gen = pushUpCounter()
+        # # Convert the OpenCV image to a PhotoImage
+
+        # while True:
+        #     self.tk_image = self.convert_opencv_to_tkinter(next(gen))
+        #     self.image_label = ttk.Label(root, image=self.tk_image)
+        #     self.image_label.after(100)
 
             
-        # Create a label to display the image
+        # # Create a label to display the image
 
 
 
-        gen = pushUpCounter()
-        while True:
-            cv2.imshow('Pushup Counter', next(gen))
+        # gen = pushUpCounter()
+        # while True:
+        #     cv2.imshow('Pushup Counter', next(gen))
 
     def back_to_leaderboard(self):
         # Destroy the pushup_counter_frame
