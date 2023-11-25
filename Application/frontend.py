@@ -1,7 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
+import cv2
 from ttkthemes import ThemedStyle
 from leaderboard import Leaderboard
+from pushupCounter import pushUpCounter
+from PIL import Image, ImageTk
 
 class VirtualTrainerApp:
     def __init__(self, root):
@@ -14,7 +17,7 @@ class VirtualTrainerApp:
         self.style.set_theme("equilux")  # You can choose a different theme
 
         # Customize the color for some specific elements
-        self.style.configure("TLabel", foreground="#FFD700", background="#1E1E1E")  # Yellow text on original gray background
+        self.style.configure("TLabel", foreground="#FFD700", background="#1E1E1E")  # Yellow text
         self.style.configure("TFrame", background="#1E1E1E")  # Background color for frames
         self.style.map("TButton", background=[('active', '#FF5733')])  # Background color for buttons on mouse hover
 
@@ -27,7 +30,9 @@ class VirtualTrainerApp:
         self.style.configure("TNotebook.Tab", focuscolor=self.style.configure(".")["background"])
 
         self.leaderboard = Leaderboard()
+        self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
+
 
     def create_widgets(self):
         # Create a notebook (tabbed interface)
@@ -65,11 +70,9 @@ class VirtualTrainerApp:
         for col in columns:
             self.leaderboard_tree.heading(col, text=col)
             self.leaderboard_tree.column(col, anchor="center")
-            
 
+        # TODO: LOAD LEADERBOARD DATA FROM DATABASE OVER HERE
         self.leaderboard.insert_new_entry("Marom", 100)
-
-        #TODO: LOAD LEADERBOARD DATA FROM DATABASE OVER HERE
         print(self.leaderboard.get_leaderboard_data())
         # Get leaderboard data
         leaderboard_data = self.leaderboard.get_leaderboard_data()
@@ -81,6 +84,10 @@ class VirtualTrainerApp:
         # Pack the Treeview
         self.leaderboard_tree.pack(padx=20, pady=10)
 
+        # Button to start push-up counter
+        attempt_record_button = ttk.Button(leaderboard_frame, text="Attempt Record", command=self.start_pushup_counter)
+        attempt_record_button.pack(pady=20)
+
     def create_workout_page(self):
         workout_frame = ttk.Frame(self.notebook)
         self.notebook.add(workout_frame, text="Start workout")
@@ -90,6 +97,52 @@ class VirtualTrainerApp:
         label.pack(pady=20)
 
         # Add your workout selection widgets here
+
+    def create_pushup_counter_page(self):
+         # Hide the tabs during push-up counter
+        self.notebook.pack_forget()
+
+        # Create a new frame for push-up counter
+        self.pushup_counter_frame = ttk.Frame(self.root)
+        self.pushup_counter_frame.pack(expand=True, fill="both")
+
+        # Add a button to go back to the leaderboard
+        back_to_leaderboard_button = ttk.Button(self.pushup_counter_frame, text="Back to Leaderboard", command=self.back_to_leaderboard)
+        back_to_leaderboard_button.pack(pady=20)
+
+    def convert_opencv_to_tkinter(self, opencv_image):
+        # Convert the OpenCV image to a PhotoImage
+        pil_image = Image.fromarray(opencv_image)
+        tk_image = ImageTk.PhotoImage(pil_image)
+        return tk_image
+    
+    def start_pushup_counter(self):
+        self.create_pushup_counter_page()
+       
+        gen = pushUpCounter()
+        # Convert the OpenCV image to a PhotoImage
+
+        while True:
+            self.tk_image = self.convert_opencv_to_tkinter(next(gen))
+            self.image_label = ttk.Label(root, image=self.tk_image)
+            self.image_label.after(100)
+
+            
+        # Create a label to display the image
+
+
+
+        gen = pushUpCounter()
+        while True:
+            cv2.imshow('Pushup Counter', next(gen))
+
+    def back_to_leaderboard(self):
+        # Destroy the pushup_counter_frame
+        if self.pushup_counter_frame:
+            self.pushup_counter_frame.destroy()
+
+        # Show the tabs again
+        self.notebook.pack(expand=True, fill="both")
 
     def navigate_to_home(self):
         self.notebook.select(0)  # Switch to the Home page

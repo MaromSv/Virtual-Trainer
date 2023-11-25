@@ -4,7 +4,7 @@ import numpy as np
 import math
 # import pyttsx3
 import pygame
-
+import database
 
 
 mp_drawing = mp.solutions.drawing_utils
@@ -172,19 +172,25 @@ def pushUpCounter():
                                     mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
                                     mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2) 
                                     )               
+            
+            cv2.imshow('Pushup Counter', image)
 
-
-            yield image #Return a generator -> So that we can display the image on the interface
             if cv2.waitKey(10) & 0xFF == ord('q'):
                 break
-
 
         cap.release()
         cv2.destroyAllWindows()
 
+# path = "Assets/database.db"
+# db = database.connect_database(path)
+# database.create_table(db)
+# database.print_database(db)
+# database.insert_data(db, "Danick", "100")
+# database.insert_data(db, "Marom", "150")
+# database.print_database(db)
+# database.remove_data(db, "Danick")
+# database.remove_data(db, "Marom")
+# database.print_database(db)
+# database.close_database(db)
 
-
-#Generator code:
-# gen = pushUpCounter()
-# while True:
-#     cv2.imshow('Pushup Counter', next(gen))
+pushUpCounter()
