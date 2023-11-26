@@ -71,8 +71,14 @@ class VirtualTrainerApp:
             self.leaderboard_tree.heading(col, text=col)
             self.leaderboard_tree.column(col, anchor="center")
 
+
+        data = [("Marom", 23), ("Bilal", 31), ("Danick", 18), ("Thanos", 25), ("Johan", 42), 
+                ("Marios", 50), ("Nicky", 11), ("Yusef", 5), ("Jan", 10), ("Emma", 8)]
+        self.leaderboard.update_leaderboard(data)
         # TODO: LOAD LEADERBOARD DATA FROM DATABASE OVER HERE
-        self.leaderboard.insert_new_entry("Marom", 100)
+        # self.leaderboard.insert_new_entry("Marom", 100)
+
+
         print(self.leaderboard.get_leaderboard_data())
         # Get leaderboard data
         leaderboard_data = self.leaderboard.get_leaderboard_data()
@@ -85,7 +91,7 @@ class VirtualTrainerApp:
         self.leaderboard_tree.pack(padx=20, pady=10)
 
         # Button to start push-up counter
-        attempt_record_button = ttk.Button(leaderboard_frame, text="Attempt Record", command=self.start_pushup_counter)
+        attempt_record_button = ttk.Button(leaderboard_frame, text="Attempt Record", command=self.start_pushup_counter, takefocus=False)
         attempt_record_button.pack(pady=20)
 
     def create_workout_page(self):
@@ -95,6 +101,27 @@ class VirtualTrainerApp:
         # Workout Page Widgets
         label = ttk.Label(workout_frame, text="Select a Workout", font=("Helvetica", 16, "bold"))
         label.pack(pady=20)
+
+        # Add Buttons for Each Type of Workout
+        button1 = ttk.Button(workout_frame, text="Workout A", command=lambda: self.start_workout("A"), takefocus=False)
+        button1.pack(pady=10)
+
+        button2 = ttk.Button(workout_frame, text="Workout B", command=lambda: self.start_workout("B"), takefocus=False)
+        button2.pack(pady=10)
+
+        button3 = ttk.Button(workout_frame, text="Workout C", command=lambda: self.start_workout("C"), takefocus=False)
+        button3.pack(pady=10)
+
+        button4 = ttk.Button(workout_frame, text="Workout D", command=lambda: self.start_workout("D"), takefocus=False)
+        button4.pack(pady=10)
+
+
+
+
+    def start_workout(self, workout_type):
+        # Logic for starting workout type 1
+        print("Starting Workout of type: " + workout_type)
+
 
         # Add your workout selection widgets here
 
@@ -107,7 +134,7 @@ class VirtualTrainerApp:
         self.pushup_counter_frame.pack(expand=True, fill="both")
 
         # Add a button to go back to the leaderboard
-        back_to_leaderboard_button = ttk.Button(self.pushup_counter_frame, text="Back to Leaderboard", command=self.back_to_leaderboard)
+        back_to_leaderboard_button = ttk.Button(self.pushup_counter_frame, text="Back to Leaderboard",  command=self.back_to_leaderboard, takefocus=False)
         back_to_leaderboard_button.pack(pady=20)
 
     def convert_opencv_to_tkinter(self, opencv_image):
@@ -117,14 +144,17 @@ class VirtualTrainerApp:
         return tk_image
     
     def start_pushup_counter(self):
+        #TODO: ADD threading 
         self.create_pushup_counter_page()
-
+        
         reps = pushUpCounter()
         minLeaderBoard = self.leaderboard.get_min_score()
 
         lengthLeaderboard = len(self.leaderboard.get_leaderboard_data())
         if reps > minLeaderBoard or lengthLeaderboard < 10:
-            print("You made it onto the leaderboard") #TODO: Replace with code to insert name and add entry to leaderboard
+            print("You made it onto the leaderboard") 
+            #TODO: Replace with code to insert name
+            self.leaderboard.insert_new_entry(reps, "you")
         else:
             print("You didnt quite make it onto the leaderboard, better luck next time")
         

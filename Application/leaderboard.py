@@ -17,12 +17,6 @@ class Leaderboard:
         """
         return sorted(self.leaderboard_data, key=lambda x: x[1], reverse=True)
 
-    def fill_leaderboard_from_array(self, array_data):
-        """
-        Fill the leaderboard with data from a 2D array.
-        :param array_data: List of tuples (name, reps) from the 2D array
-        """
-        self.update_leaderboard(array_data)
 
     def insert_new_entry(self, name, reps):
         """
