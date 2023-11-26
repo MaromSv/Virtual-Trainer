@@ -1,34 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="home.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Bootstrap Responsive Web Application Template</title>
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- core css -->
+    <link href="assets/css/home.css" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>Virtual Trainer: Buddy</h1>
+    <div class="app">
+        <div class="layout">
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <header>
+                    <div class="header-container">
+                        <nav>
+                            <div class="logo">
+                                <h1>Virtual Trainer: Find a Buddy</h1>
+                            </div>
+                            <div class="menu">
+                                <ul>
+                                    <li><a href="home.html">Home</a></li>
+                                    <li><a href="map.html">Map</a></li>
+                                    <li><a href="buddy.html">Find a Buddy</a></li>
+                                    <li><a href="leaderboard.html">Leaderboard</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </header>
+                <!-- Header END -->
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <!-- <div class="page-title">
+                            <h4>Personal Info</h4>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-heading border bottom">
+                                        <h4 class="card-title">Find a Buddy Form</h4>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="mrg-top-40">
+                                            <div class="row">
+                                                <div class="col-md-8 ml-auto mr-auto">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Days available:</label><br>
+                                                                    <input type="checkbox" id="day1" name="day1" value="Monday">
+                                                                    <label for="day1"> Monday</label><br>
+                                                                    <input type="checkbox" id="day2" name="day2" value="Tuesday">
+                                                                    <label for="day2"> Tuesday</label><br>
+                                                                    <input type="checkbox" id="day3" name="day3" value="Wednesday">
+                                                                    <label for="day3"> Wednesday</label><br>
+                                                                    <input type="checkbox" id="day4" name="day4" value="Thursday">
+                                                                    <label for="day4"> Thursday</label><br>
+                                                                    <input type="checkbox" id="day5" name="day5" value="Friday">
+                                                                    <label for="day5"> Friday</label><br>
+                                                                    <input type="checkbox" id="day6" name="day6" value="Saturday">
+                                                                    <label for="day6"> Saturday</label><br>
+                                                                    <input type="checkbox" id="day7" name="day7" value="Sunday">
+                                                                    <label for="day7"> Sunday</label><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Gender Preference:</label><br>
+                                                                    <input type="checkbox" id="gender_pref1" name="gender_pref1" value="Same">
+                                                                    <label for="gender_pref1"> Same Gender</label><br>
+                                                                    <input type="checkbox" id="gender_pref2" name="gender_pref2" value="Any">
+                                                                    <label for="gender_pref2"> Any</label><br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Experience Preference:</label><br>
+                                                                    <input type="checkbox" id="exp_pref1" name="exp_pref1" value="Beginner">
+                                                                    <label for="exp_pref1"> Beginner</label><br>
+                                                                    <input type="checkbox" id="exp_pref2" name="exp_pref2" value="Intermediate">
+                                                                    <label for="exp_pref2"> Intermediate</label><br>
+                                                                    <input type="checkbox" id="exp_pref3" name="exp_pref3" value="Advanced">
+                                                                    <label for="exp_pref3"> Advanced</label><br>                                                        
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Location Preference:</label><br>
+                                                                    <input type="checkbox" id="loc_pref1" name="loc_pref1" value="Campus">
+                                                                    <label for="loc_pref1"> Campus</label><br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-xs-6">
+                                                                <div class="text-right mrg-top-5">
+                                                                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <!-- Content Wrapper END -->
             </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="map.html">Map</a></li>
-                    <li><a href="buddy.html">Find a Buddy</a></li>
-                    <li><a href="leaderboard.html">Leaderboard</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <div class="form">
-        <h2>Fill in form</h2>
-        <input type="text" placeholder="Days of the week"/>
-        <input type="text" placeholder="Gender Preference"/>
-        <input type="text" placeholder="Experience Preference"/>
-        <input type="text" placeholder="Workout Goals"/>
-        <button>Submit</button>
+            <!-- Page Container END -->
+
+        </div>
     </div>
+
 </body>
+
 </html>

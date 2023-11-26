@@ -1,37 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="home.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>Virtual Trainer: Home</h1>
-            </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="map.html">Map</a></li>
-                    <li><a href="buddy.html">Find a Buddy</a></li>
-                    <li><a href="leaderboard.html">Leaderboard</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <div class="form">
-        <h2>Personal info</h2>
-        <input type="text" placeholder="First Name"/>
-        <input type="text" placeholder="Last Name"/>
-        <input type="text" placeholder="Age"/>
-        <input type="text" placeholder="Gender"/>
-        <input type="text" placeholder="Experience"/>
-        <input type="text" placeholder="Location"/>
-        <button>Log out</button>
-    </div>
-</body>
-</html>
+<html>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Bootstrap Responsive Web Application Template</title>
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- core css -->
+    <link href="assets/css/home.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app">
+        <div class="layout">
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <header>
+                    <div class="header-container">
+                        <nav>
+                            <div class="logo">
+                                <h1>Virtual Trainer: Home</h1>
+                            </div>
+                            <div class="menu">
+                                <ul>
+                                    <li><a href="home.html">Home</a></li>
+                                    <li><a href="map.html">Map</a></li>
+                                    <li><a href="buddy.html">Find a Buddy</a></li>
+                                    <li><a href="leaderboard.html">Leaderboard</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </header>
+                <!-- Header END -->
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <!-- <div class="page-title">
+                            <h4>Personal Info</h4>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-heading border bottom">
+                                        <h4 class="card-title">Personal Info</h4>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="mrg-top-40">
+                                            <div class="row">
+                                                <div class="col-md-8 ml-auto mr-auto">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>First Name:</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Last Name:</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Age:</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Location:</label>                               
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Gender:</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Experience:</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-heading border bottom">
+                                        <h4 class="card-title">Update Personal Info Form</h4>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="mrg-top-40">
+                                            <div class="row">
+                                                <div class="col-md-8 ml-auto mr-auto">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>First Name</label>
+                                                                    <input type="text" placeholder="first name" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Last Name</label>
+                                                                    <input type="text" placeholder="last name" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Age</label>
+                                                                    <input type="text" placeholder="age" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Location:</label><br>
+                                                                    <input type="checkbox" id="loc1" name="loc1" value="Campus">
+                                                                    <label for="loc1"> Campus</label><br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Gender:</label><br>
+                                                                    <input type="checkbox" id="gender1" name="gender1" value="Male">
+                                                                    <label for="gender1"> Male</label><br>
+                                                                    <input type="checkbox" id="gender2" name="gender2" value="Female">
+                                                                    <label for="gender2"> Female</label><br>
+                                                                    <input type="checkbox" id="gender3" name="gender3" value="Other">
+                                                                    <label for="gender3"> Other</label><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Experience:</label><br>
+                                                                    <input type="checkbox" id="exp1" name="exp1" value="Beginner">
+                                                                    <label for="exp1"> Beginner</label><br>
+                                                                    <input type="checkbox" id="exp2" name="exp2" value="Intermediate">
+                                                                    <label for="exp2"> Intermediate</label><br>
+                                                                    <input type="checkbox" id="exp3" name="exp3" value="Advanced">
+                                                                    <label for="exp3"> Advanced</label><br>                                                        
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-xs-6">
+                                                                <div class="text-right mrg-top-5">
+                                                                    <button type="submit" class="btn btn-primary">Update Personal Info</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="mrg-top-40">
+                                            <div class="row">
+                                                <div class="col-md-8 ml-auto mr-auto">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-xs-6">
+                                                                <div class="text-right mrg-top-5">
+                                                                    <button type="submit" class="btn btn-primary">Log Out</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <!-- Content Wrapper END -->
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+
+</body>
+
+</html>
