@@ -4,7 +4,8 @@ import cv2
 from ttkthemes import ThemedStyle
 from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
-from PIL import Image, ImageTk
+# from PIL import Image, ImageTk
+from tkinter import simpledialog
 
 class VirtualTrainerApp:
     def __init__(self, root):
@@ -40,8 +41,9 @@ class VirtualTrainerApp:
 
         # Create pages
         self.create_home_page()
-        self.create_leaderboard_page()
         self.create_workout_page()
+        self.create_leaderboard_page()
+      
 
         # Pack the notebook
         self.notebook.pack(expand=True, fill="both")
@@ -50,6 +52,9 @@ class VirtualTrainerApp:
         home_frame = ttk.Frame(self.notebook)
         self.notebook.add(home_frame, text="Home")
 
+    
+        #TODO: add explanations or something to the page
+        
         # Home Page Widgets
         label = ttk.Label(home_frame, text="Welcome to Virtual Trainer", font=("Helvetica", 16, "bold"))
         label.pack(pady=20)
@@ -72,9 +77,10 @@ class VirtualTrainerApp:
             self.leaderboard_tree.column(col, anchor="center")
 
 
-        data = [("Marom", 23), ("Bilal", 31), ("Danick", 18), ("Thanos", 25), ("Johan", 42), 
-                ("Marios", 50), ("Nicky", 11), ("Yusef", 5), ("Jan", 10), ("Emma", 8)]
+        # data = [("Marom", 23), ("Bilal", 31), ("Danick", 18), ("Thanos", 25), ("Johan", 42), 
+        #         ("Marios", 50), ("Nicky", 11), ("Yusef", 5), ("Jan", 10), ("Emma", 8)]
         self.leaderboard.update_leaderboard(data)
+
         # TODO: LOAD LEADERBOARD DATA FROM DATABASE OVER HERE
         # self.leaderboard.insert_new_entry("Marom", 100)
 
@@ -103,20 +109,25 @@ class VirtualTrainerApp:
         label.pack(pady=20)
 
         # Add Buttons for Each Type of Workout
-        button1 = ttk.Button(workout_frame, text="Workout A", command=lambda: self.start_workout("A"), takefocus=False)
+        button1 = ttk.Button(workout_frame, text="Core Workout", command=lambda: self.start_workout("Core Workout"), takefocus=False)
         button1.pack(pady=10)
 
-        button2 = ttk.Button(workout_frame, text="Workout B", command=lambda: self.start_workout("B"), takefocus=False)
+        button2 = ttk.Button(workout_frame, text="Cardio Workout", command=lambda: self.start_workout("Back Workout"), takefocus=False)
         button2.pack(pady=10)
 
-        button3 = ttk.Button(workout_frame, text="Workout C", command=lambda: self.start_workout("C"), takefocus=False)
+        button3 = ttk.Button(workout_frame, text="Chest Workout", command=lambda: self.start_workout("Chest Workout"), takefocus=False)
         button3.pack(pady=10)
 
-        button4 = ttk.Button(workout_frame, text="Workout D", command=lambda: self.start_workout("D"), takefocus=False)
+        button4 = ttk.Button(workout_frame, text="Legs Workout", command=lambda: self.start_workout("Legs Workout"), takefocus=False)
         button4.pack(pady=10)
 
 
 
+    def get_input(self):
+        result = simpledialog.askstring("Name", "Enter your name:")
+        if result:
+            # Do something with the user input (e.g., print it)
+            return result
 
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
@@ -146,17 +157,24 @@ class VirtualTrainerApp:
     def start_pushup_counter(self):
         #TODO: ADD threading 
         self.create_pushup_counter_page()
-        
         reps = pushUpCounter()
+
+
         minLeaderBoard = self.leaderboard.get_min_score()
 
         lengthLeaderboard = len(self.leaderboard.get_leaderboard_data())
-        if reps > minLeaderBoard or lengthLeaderboard < 10:
-            print("You made it onto the leaderboard") 
-            #TODO: Replace with code to insert name
-            self.leaderboard.insert_new_entry(reps, "you")
-        else:
-            print("You didnt quite make it onto the leaderboard, better luck next time")
+    
+        try:
+
+            if reps > minLeaderBoard or lengthLeaderboard < 10:
+                print("You made it onto the leaderboard") 
+                name = self.get_input()
+                self.leaderboard.insert_new_entry(reps, name)
+            else:
+                print("You didnt quite make it onto the leaderboard, better luck next time")
+
+        except:
+            print("PushUp Counter failed") #Reps = None
         
 
     def back_to_leaderboard(self):
