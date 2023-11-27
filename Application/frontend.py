@@ -30,7 +30,7 @@ class VirtualTrainerApp:
         self.style.map("TNotebook.Tab", foreground=[('selected', '#FFD700'), ('active', '#FFD700')])
         self.style.configure("TNotebook.Tab", focuscolor=self.style.configure(".")["background"])
 
-        self.leaderboard = Leaderboard()
+        self.leaderboard = Leaderboard("Assets/database.db")
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
 
@@ -79,7 +79,7 @@ class VirtualTrainerApp:
 
         # data = [("Marom", 23), ("Bilal", 31), ("Danick", 18), ("Thanos", 25), ("Johan", 42), 
         #         ("Marios", 50), ("Nicky", 11), ("Yusef", 5), ("Jan", 10), ("Emma", 8)]
-        self.leaderboard.update_leaderboard(data)
+        # self.leaderboard.update_leaderboard(data)
 
         # TODO: LOAD LEADERBOARD DATA FROM DATABASE OVER HERE
         # self.leaderboard.insert_new_entry("Marom", 100)
