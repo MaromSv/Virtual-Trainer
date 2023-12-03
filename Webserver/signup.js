@@ -10,9 +10,15 @@ function myFunction() {
 // (document.getElementById('email').value
 
 function createAcc() {
-  var sqlite3 = require('sqlite3');
 
-  //connect DB
+var email = document.getElementById("email").value;
+var password =document.getElementById("password").value;
+console.log("email: ", email);
+console.log("password: ", password); 
+const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
+ 
+  // connect DB
   let db = new sqlite3.Database('Application/Assets/database.db', sqlite3.OPEN_READWRITE, (err) => {
       if (err) {
         return console.error(err.message);
@@ -21,9 +27,7 @@ function createAcc() {
   });
 
   //get email and password and insert into db
-  document.getElementById("email").value;
-  console.log("email: ", email);
-  console.log("password: ", password);
+  
 
   document.getElementById("password").value;
   db.run('INSERT INTO users(email,password) VALUES(?,?)', [email,password], function(err){
