@@ -13,6 +13,9 @@
 
     <!-- core css -->
     <link href="assets/css/home.css" rel="stylesheet">
+
+    <script src="buddy.js"></script>
+
 </head>
 
 <body>
@@ -61,28 +64,28 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Days available:</label><br>
-                                                                    <input type="checkbox" id="day1" name="day1" value="Monday">
+                                                                    <input class="days_available" type="checkbox" id="day1" name="day1" value="Monday">
                                                                     <label for="day1"> Monday</label><br>
-                                                                    <input type="checkbox" id="day2" name="day2" value="Tuesday">
+                                                                    <input class="days_available" type="checkbox" id="day2" name="day2" value="Tuesday">
                                                                     <label for="day2"> Tuesday</label><br>
-                                                                    <input type="checkbox" id="day3" name="day3" value="Wednesday">
+                                                                    <input class="days_available" type="checkbox" id="day3" name="day3" value="Wednesday">
                                                                     <label for="day3"> Wednesday</label><br>
-                                                                    <input type="checkbox" id="day4" name="day4" value="Thursday">
+                                                                    <input class="days_available" type="checkbox" id="day4" name="day4" value="Thursday">
                                                                     <label for="day4"> Thursday</label><br>
-                                                                    <input type="checkbox" id="day5" name="day5" value="Friday">
+                                                                    <input class="days_available" type="checkbox" id="day5" name="day5" value="Friday">
                                                                     <label for="day5"> Friday</label><br>
-                                                                    <input type="checkbox" id="day6" name="day6" value="Saturday">
+                                                                    <input class="days_available" type="checkbox" id="day6" name="day6" value="Saturday">
                                                                     <label for="day6"> Saturday</label><br>
-                                                                    <input type="checkbox" id="day7" name="day7" value="Sunday">
+                                                                    <input class="days_available" type="checkbox" id="day7" name="day7" value="Sunday">
                                                                     <label for="day7"> Sunday</label><br>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Gender Preference:</label><br>
-                                                                    <input type="checkbox" id="gender_pref1" name="gender_pref1" value="Same">
+                                                                    <input class="gender_preference" type="checkbox" id="gender_pref1" name="gender_pref1" value="Same">
                                                                     <label for="gender_pref1"> Same Gender</label><br>
-                                                                    <input type="checkbox" id="gender_pref2" name="gender_pref2" value="Any">
+                                                                    <input class="gender_preference" type="checkbox" id="gender_pref2" name="gender_pref2" value="Any">
                                                                     <label for="gender_pref2"> Any</label><br>
                                                                 </div>
                                                             </div>
@@ -91,18 +94,18 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Experience Preference:</label><br>
-                                                                    <input type="checkbox" id="exp_pref1" name="exp_pref1" value="Beginner">
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref1" name="exp_pref1" value="Beginner">
                                                                     <label for="exp_pref1"> Beginner</label><br>
-                                                                    <input type="checkbox" id="exp_pref2" name="exp_pref2" value="Intermediate">
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref2" name="exp_pref2" value="Intermediate">
                                                                     <label for="exp_pref2"> Intermediate</label><br>
-                                                                    <input type="checkbox" id="exp_pref3" name="exp_pref3" value="Advanced">
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref3" name="exp_pref3" value="Advanced">
                                                                     <label for="exp_pref3"> Advanced</label><br>                                                        
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Location Preference:</label><br>
-                                                                    <input type="checkbox" id="loc_pref1" name="loc_pref1" value="Campus">
+                                                                    <input class="location_preference" type="checkbox" id="loc_pref1" name="loc_pref1" value="Campus">
                                                                     <label for="loc_pref1"> Campus</label><br>
                                                                 </div>
                                                             </div>
@@ -110,7 +113,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6 col-xs-6">
                                                                 <div class="text-right mrg-top-5">
-                                                                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                                                                    <button onclick="submit_buddy()" type="submit" class="btn btn-primary">Submit Form</button>
                                                                 </div>
                                                             </div>
                                                         </div>
