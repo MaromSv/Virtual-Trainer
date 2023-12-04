@@ -4,14 +4,14 @@ import cv2
 from ttkthemes import ThemedStyle
 from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
-# from PIL import Image, ImageTk
 from tkinter import simpledialog
-# import pydocs
+import videoPlayer
+
 class VirtualTrainerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Virtual Trainer App")
-        self.root.geometry("600x820")  # Adjusted for a tablet-sized screen
+        self.root.geometry("600x800")  # Adjusted for a tablet-sized screen
 
         # Apply a themed style
         self.style = ThemedStyle(self.root)
@@ -23,6 +23,7 @@ class VirtualTrainerApp:
         self.style.map("TButton", background=[('active', '#FF5733')])  # Background color for buttons on mouse hover
 
         # Customize the color for the notebook and tabs
+        self.style.configure('lefttab.TNotebook', tabposition='s')
         self.style.configure("TNotebook", background="#1E1E1E")  # Original gray background color for the notebook
         self.style.configure("TNotebook.Tab", background="#1E1E1E", foreground="#FFD700")  # Tab color
 
@@ -30,14 +31,22 @@ class VirtualTrainerApp:
         self.style.map("TNotebook.Tab", foreground=[('selected', '#FFD700'), ('active', '#FFD700')])
         self.style.configure("TNotebook.Tab", focuscolor=self.style.configure(".")["background"])
 
-        self.leaderboard = Leaderboard("Assets/database.db")
+        #Size/Shape of tabs:
+        self.style.configure("TNotebook.Tab", padding = (52, 20), font=('Helvetica', 15), tabmargins=0)
+       
+
+        
+        # self.leaderboard = Leaderboard("Assets/database.db")
+    
+        self.leaderboard = Leaderboard("Application/Assets/database.db")
+
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
 
 
     def create_widgets(self):
         # Create a notebook (tabbed interface)
-        self.notebook = ttk.Notebook(self.root)
+        self.notebook = ttk.Notebook(self.root, style = 'lefttab.TNotebook')
 
         # Create pages
         self.create_home_page()
@@ -85,7 +94,7 @@ class VirtualTrainerApp:
         # self.leaderboard.insert_new_entry("Marom", 100)
 
 
-        print(self.leaderboard.get_leaderboard_data())
+        # print(self.leaderboard.get_leaderboard_data())
         # Get leaderboard data
         leaderboard_data = self.leaderboard.get_leaderboard_data()
 
@@ -132,6 +141,7 @@ class VirtualTrainerApp:
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
         print("Starting Workout of type: " + workout_type)
+        videoPlayer.playVideo("Application\Assets\Video\VID-20231204-WA0002.mp4")
 
 
         # Add your workout selection widgets here
