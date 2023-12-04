@@ -102,8 +102,8 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
     return stage, counter
 
 def pushUpCounter():
-
     cap = cv2.VideoCapture(0)
+    # frame = cv2.rotate(cap, cv2.ROTATE_90_CLOCKWISE)
 
     # Pushup counter variables
     counter = 0 
@@ -115,7 +115,8 @@ def pushUpCounter():
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
         while cap.isOpened():
             ret, frame = cap.read()
-            
+            frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+
             timeSpent = time.time() - start_time
             timeLeft = 60 - timeSpent #Time left for attempt
 
@@ -210,7 +211,7 @@ def pushUpCounter():
             mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
                                     mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
                                     mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2) 
-                                    )               
+                                    )
             # image = cv2.resize(image, (600, 800))
             cv2.imshow('Pushup Counter', image)
 
