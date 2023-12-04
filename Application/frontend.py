@@ -132,8 +132,14 @@ class VirtualTrainerApp:
 
 
 
-    def get_input(self):
+    def get_input_name(self):
         result = simpledialog.askstring("Name", "Enter your name:")
+        if result:
+            # Do something with the user input (e.g., print it)
+            return result
+
+    def get_input_difficulty(self):
+        result = simpledialog.askstring("", "Enter your name:")
         if result:
             # Do something with the user input (e.g., print it)
             return result
@@ -141,7 +147,7 @@ class VirtualTrainerApp:
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
         print("Starting Workout of type: " + workout_type)
-        videoPlayer.playVideo("Assets\Video\VID-20231204-WA0005.mp4")
+        videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
 
 
         # Add your workout selection widgets here
@@ -166,7 +172,7 @@ class VirtualTrainerApp:
 
             if reps > minLeaderBoard or lengthLeaderboard < 10:
                 print("You made it onto the leaderboard") 
-                name = self.get_input()
+                name = self.get_input_name()
                 self.leaderboard.insert_new_entry(reps, name)
             else:
                 print("You didnt quite make it onto the leaderboard, better luck next time")
@@ -174,14 +180,6 @@ class VirtualTrainerApp:
         except:
             print("PushUp Counter failed") #Reps = None
         
-
-    def back_to_leaderboard(self):
-        # Destroy the pushup_counter_frame
-        if self.pushup_counter_frame:
-            self.pushup_counter_frame.destroy()
-
-        # Show the tabs again
-        self.notebook.pack(expand=True, fill="both")
 
     def navigate_to_home(self):
         self.notebook.select(0)  # Switch to the Home page
