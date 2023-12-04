@@ -6,7 +6,7 @@ from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
 # from PIL import Image, ImageTk
 from tkinter import simpledialog
-
+# import pydocs
 class VirtualTrainerApp:
     def __init__(self, root):
         self.root = root
