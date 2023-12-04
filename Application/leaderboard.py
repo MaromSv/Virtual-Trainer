@@ -1,37 +1,81 @@
 #Class for the leaderboard so that we can use OOP
+import sqlite3
+import os
+
 class Leaderboard:
-    def __init__(self):
-        self.leaderboard_data = []
+    def __init__(self, path):
+        self.path = path
+
+        if not os.path.exists(path):
+            f = open(path, "x")
+            print("Database created at: " + path)
+    
+        print("Connecting to Database: " + path)
+        db = self.open_database()
+
+        cursor = db.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS leaderboard(name, score)")
+        self.close_database(db)
+        print("Database initialisation complete.")
+
+    def open_database(self):
+        db = sqlite3.connect(self.path)
+        return db
+    
+    def close_database(self, db):
+        db.commit()
+        db.close()
+        
 
     def update_leaderboard(self, data):
         """
         Update the leaderboard with new data.
         :param data: List of tuples (name, reps)
         """
-        self.leaderboard_data = data
+        db = self.open_database()
+
+        for entry in data:        
+            self.insert_new_entry(db, entry[0], entry[1])
+
+        self.close_database(db)
 
     def get_leaderboard_data(self):
         """
         Get the current leaderboard data.
         :return: List of tuples (name, reps) ordered by reps in descending order
         """
-        return sorted(self.leaderboard_data, key=lambda x: x[1], reverse=True)
+        db = self.open_database()
+        cursor = db.cursor()
 
+        result = cursor.execute("SELECT * FROM leaderboard")
+        output = result.fetchall()
 
-    def insert_new_entry(self, name, reps):
+        self.close_database(db)
+
+        return output
+
+    def insert_new_entry(self, db, name, reps):
         """
         Insert a new entry into the leaderboard.
         :param name: Name of the entry
         :param reps: Number of reps for the entry
         """
-        self.leaderboard_data.append((name, reps))
+        cursor = db.cursor()
+        cursor.execute("INSERT INTO leaderboard VALUES" + "('" + name + "'," + str(reps) + ")")
+        db.commit()
 
     def get_min_score(self):
-            """
-            Get the minimum score in the leaderboard.
-            :return: Minimum score
-            """
-            if not self.leaderboard_data:
-                return None
+        """
+        Get the minimum score in the leaderboard.
+        :return: Minimum score
+        """
+        db = self.open_database()
+        cursor = db.cursor()
 
-            return min(entry[1] for entry in self.leaderboard_data)
+        result = cursor.execute("SELECT * FROM leaderboard ORDER BY score ASC LIMIT 1")
+        output = result.fetchone()[1]
+
+        self.close_database(db)
+
+        return output
+    

@@ -30,7 +30,7 @@ class VirtualTrainerApp:
         self.style.map("TNotebook.Tab", foreground=[('selected', '#FFD700'), ('active', '#FFD700')])
         self.style.configure("TNotebook.Tab", focuscolor=self.style.configure(".")["background"])
 
-        self.leaderboard = Leaderboard()
+        self.leaderboard = Leaderboard("Assets/database.db")
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
 

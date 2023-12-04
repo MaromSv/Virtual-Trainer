@@ -14,6 +14,9 @@ def connect_database(path):
     if not os.path.exists(path):
         f = open(path, "x")
         print("Database created at: " + path)
+    else:
+        print("Database already exists! Aborting...")
+        exit()
     
     print("Connecting to Database: " + path)
     db = sqlite3.connect(path)
@@ -25,48 +28,62 @@ def connect_database(path):
 #
 # Argument: database - the database in which to create the table
 # 
-def create_table(database):
+def create_tables(database):
     cursor = database.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS trainer(name, score)")
+
+    print("Creating 'login' table...")
+    query = """CREATE TABLE IF NOT EXISTS login (\n
+    id INTEGER PRIMARY KEY UNIQUE,\n
+    username TEXT NOT NULL,\n
+    password TEXT NOT NULL\n
+    ) WITHOUT ROWID;"""
+    cursor.execute(query)
     
-# Function: insert_data(database, name, score)
-# 
-# Inserts data entry to specified database file.
-#
-# Argument: database - the database in which to insert data
-# Argument: name - the name of the new data entry
-# Argument: score - the score of the new data entry
-# 
-def insert_data(database, name, score):
-    cursor = database.cursor()
+    print("Creating 'users' table...")
+    query = """CREATE TABLE IF NOT EXISTS users (\n
+    id INTEGER PRIMARY KEY UNIQUE,\n
+    firstName TEXT NOT NULL,\n
+    lastName TEXT NOT NULL,\n
+    age INTEGER NOT NULL,\n
+    gender TEXT NOT NULL,\n
+    location TEXT NOT NULL\n
+    ) WITHOUT ROWID;"""
+    cursor.execute(query)
+    
+    print("Creating 'buddysystem' table...")
+    query = """CREATE TABLE IF NOT EXISTS buddysystem (\n
+    id INTEGER PRIMARY KEY UNIQUE,\n
+    available TEXT NOT NULL,\n
+    gender TEXT NOT NULL,\n
+    experience TEXT NOT NULL,\n
+    location TEXT NOT NULL\n
+    ) WITHOUT ROWID;"""
+    cursor.execute(query)
 
-    cursor.execute("INSERT INTO trainer VALUES" + "('" + name + "'," + score + ")")
+    print("Creating 'leaderboard' table...")
+    query = """CREATE TABLE IF NOT EXISTS leaderboard (\n
+    id INTEGER PRIMARY KEY UNIQUE,\n
+    exercise TEXT NOT NULL,\n
+    score INTEGER NOT NULL\n
+    ) WITHOUT ROWID;"""
+    cursor.execute(query)
     database.commit()
 
-# Function: remove_data(database, name)
-# 
-# Removes data entry from specified database file.
-#
-# Argument: database - the database from which to remove data
-# Argument: name - the name of the to be deleted data entry
-# 
-def remove_data(database, name):
+def check_tables(database):
     cursor = database.cursor()
 
-    cursor.execute("DELETE FROM trainer WHERE name='" + name + "'")
-    database.commit()
+    result = cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='login';")
+    print("Table 'login' exists: " + str(result.fetchall()))
 
-# Function: print_database(database)
-# 
-# Prints all entries in the database
-#
-# Argument: database - the database from which to remove data
-# 
-def print_database(database):
-    cursor = database.cursor()
+    result = cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users';")
+    print("Table 'users' exists: " + str(result.fetchall()))
 
-    result = cursor.execute("SELECT * FROM Trainer")
-    print(result.fetchall())
+    result = cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='buddysystem';")
+    print("Table 'buddysystem' exists: " + str(result.fetchall()))
+    
+    result = cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='leaderboard';")
+    print("Table 'leaderboard' exists: " + str(result.fetchall()))
+
 
 # Function: close_database(database)
 # 
@@ -78,3 +95,26 @@ def close_database(database):
     database.commit()
     database.close()
     print("Database Connection Closed")
+
+def init_database():
+    path = "Assets/test.db"
+
+    db = connect_database(path)
+    create_tables(db)
+    check_tables(db)
+    close_database(db)
+
+
+if __name__ == "__main__":
+    print("Database Initialiser for the Virtual Trainer\n\n")
+    cmd = input("Are you sure you want to initialise the database? ").lower()
+
+    if (cmd == "y"):
+        print("Initialisation Started!")
+        init_database()
+    elif (cmd == "yes"):
+        print("Initialisation Started!")
+        init_database()
+    else:
+        print("Initialisation Aborted!")
+        exit()
