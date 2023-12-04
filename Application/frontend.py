@@ -38,7 +38,7 @@ class VirtualTrainerApp:
         
         # self.leaderboard = Leaderboard("Assets/database.db")
     
-        self.leaderboard = Leaderboard("Application/Assets/database.db")
+        self.leaderboard = Leaderboard("Assets/database.db")
 
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
@@ -141,7 +141,7 @@ class VirtualTrainerApp:
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
         print("Starting Workout of type: " + workout_type)
-        videoPlayer.playVideo("Application\Assets\Video\VID-20231204-WA0005.mp4")
+        videoPlayer.playVideo("Assets\Video\VID-20231204-WA0005.mp4")
 
 
         # Add your workout selection widgets here
