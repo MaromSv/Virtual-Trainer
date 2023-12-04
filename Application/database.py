@@ -1,6 +1,8 @@
 import sqlite3
 import os
 
+path = "Assets/test.db"
+
 # Function: connect_database(path)
 # 
 # Creates database file if it does not exists.
@@ -110,10 +112,84 @@ def init_database():
     check_tables(db)
     close_database(db)
 
+def add_entry():
+    cmd = input("Choose a table: 1. login, 2. users, 3. buddysystem, 4. leaderboard? ")
+
+    match cmd:
+        case 1:
+            add_login()
+        case 2:
+            add_user()
+        case 3:
+            add_buddysystem()
+        case 4:
+            add_leaderboard()
+        case _:
+            print("Unknown input!")
+            add_entry()
+            
+
+def add_login():
+    db = connect_database(path)
+
+    id = input("Enter a 5-digit user ID: ")
+    username = input("Enter a username: ")
+    password = input("Enter a password: ")
+
+    cursor = db.cursor()
+    cursor.execute("INSERT INTO login VALUES" + "(" + str(id) + "," + username + "," + password + ")")
+    db.commit()
+
+    close_database(db)
+
+def add_user():
+    db = connect_database(path)
+
+    id = input("Enter a 5-digit user ID: ")
+    firstname = input("Enter a first name: ")
+    lastname = input("Enter a last name: ")
+    age = input("Enter an age: ")
+    gender = input("Enter a gender: ")
+    location = input("Enter a location: ")
+
+    cursor = db.cursor()
+    cursor.execute("INSERT INTO users VALUES" + "(" + str(id) + "," + firstname + "," + lastname + "," + age + "," + gender + "," + location + ")")
+    db.commit()
+
+    close_database(db)
+
+def add_buddysystem():
+    db = connect_database(path)
+
+    id = input("Enter a 5-digit user ID: ")
+    available = input("Enter available day: ")
+    gender = input("Enter a gender: ")
+    experience = input("Enter the experience level: ")
+    location = input("Enter a location: ")
+
+    cursor = db.cursor()
+    cursor.execute("INSERT INTO buddysystem VALUES" + "(" + str(id) + "," + available + "," + gender + "," + experience + "," + location + ")")
+    db.commit()
+
+    close_database(db)
+
+def add_leaderboard():
+    db = connect_database(path)
+
+    id = input("Enter a 5-digit user ID: ")
+    exercise = input("Enter an exercise: ")
+    score = input("Enter a score: ")
+
+    cursor = db.cursor()
+    cursor.execute("INSERT INTO leaderboard VALUES" + "(" + str(id) + "," + exercise + "," + score + ")")
+    db.commit()
+
+    close_database(db)
+
 
 if __name__ == "__main__":
     print("Database Initialiser for the Virtual Trainer\n\n")
-    cmd = input("Are you sure you want to initialise the database? ").lower()
+    cmd = input("Do you want to initialise the database? ").lower()
 
     if (cmd == "y"):
         print("Initialisation Started!")
@@ -121,6 +197,13 @@ if __name__ == "__main__":
     elif (cmd == "yes"):
         print("Initialisation Started!")
         init_database()
+
+    
+    cmd = input("Do you want to make an entry in the database? ").lower()
+    if (cmd == "y"):
+        add_entry()
+    elif (cmd == "yes"):
+        add_entry()
     else:
-        print("Initialisation Aborted!")
+        print("Program Exit")
         exit()
