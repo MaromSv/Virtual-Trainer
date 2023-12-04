@@ -218,26 +218,12 @@ def pushUpCounter():
 
 
             if (timeLeft < 0):
+                cap.release()
+                cv2.destroyAllWindows()
                 return counter
 
             if cv2.waitKey(10) & 0xFF == ord('q'):
                 break
 
-
         cap.release()
         cv2.destroyAllWindows()
-
-# path = "Assets/database.db"
-# db = database.connect_database(path)
-# database.create_table(db)
-# database.print_database(db)
-# database.insert_data(db, "Danick", "100")
-# database.insert_data(db, "Marom", "150")
-# database.print_database(db)
-# database.remove_data(db, "Danick")
-# database.remove_data(db, "Marom")
-# database.print_database(db)
-# database.close_database(db)
-
-# reps = pushUpCounter()
-# print(reps)
