@@ -9,4 +9,4 @@ def playVideo(path):
     clip.preview().resize(1.5)
     pygame.quit()
 
-playVideo('Application\\Assets\\Video\\baby.mp4')
+# playVideo('Assets\\Video\\baby.mp4')
