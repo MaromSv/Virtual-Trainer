@@ -38,7 +38,7 @@ class VirtualTrainerApp:
         
         # self.leaderboard = Leaderboard("Assets/database.db")
     
-        self.leaderboard = Leaderboard("Assets/database.db")
+        self.leaderboard = Leaderboard("Application/Assets/database.db")
 
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
@@ -146,17 +146,7 @@ class VirtualTrainerApp:
 
         # Add your workout selection widgets here
 
-    def create_pushup_counter_page(self):
-         # Hide the tabs during push-up counter
-        self.notebook.pack_forget()
 
-        # Create a new frame for push-up counter
-        self.pushup_counter_frame = ttk.Frame(self.root)
-        self.pushup_counter_frame.pack(expand=True, fill="both")
-
-        # Add a button to go back to the leaderboard
-        back_to_leaderboard_button = ttk.Button(self.pushup_counter_frame, text="Back to Leaderboard",  command=self.back_to_leaderboard, takefocus=False)
-        back_to_leaderboard_button.pack(pady=20)
 
     def convert_opencv_to_tkinter(self, opencv_image):
         # Convert the OpenCV image to a PhotoImage
@@ -165,8 +155,6 @@ class VirtualTrainerApp:
         return tk_image
     
     def start_pushup_counter(self):
-        #TODO: ADD threading 
-        self.create_pushup_counter_page()
         reps = pushUpCounter()
 
 
