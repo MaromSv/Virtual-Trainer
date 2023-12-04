@@ -6,7 +6,7 @@ import pygame
 
 def playVideo(path):
     clip = VideoFileClip(path)
-    clip.preview()
+    clip.preview().resize(1.5)
     pygame.quit()
 
-# playVideo('Application\\Assets\\Video\\baby.mp4')
+playVideo('Application\\Assets\\Video\\baby.mp4')

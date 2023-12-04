@@ -141,6 +141,18 @@ class VirtualTrainerApp:
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
         print("Starting Workout of type: " + workout_type)
+
+        #Structure for later:
+        if workout_type == "x":
+            videoPlayer.playVideo("x")
+        elif workout_type == "y":
+            videoPlayer.playVideo("y")
+        elif workout_type == "z":
+            videoPlayer.playVideo("z")
+        else:
+            videoPlayer.playVideo("e")
+
+
         videoPlayer.playVideo("Application\Assets\Video\VID-20231204-WA0002.mp4")
 
 
