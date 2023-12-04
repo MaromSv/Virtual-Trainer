@@ -14,7 +14,7 @@ class Leaderboard:
         db = self.open_database()
 
         cursor = db.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS leaderboard(name, score)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS test(name, score)")
         self.close_database(db)
         print("Database initialisation complete.")
 
@@ -47,7 +47,7 @@ class Leaderboard:
         db = self.open_database()
         cursor = db.cursor()
 
-        result = cursor.execute("SELECT * FROM leaderboard")
+        result = cursor.execute("SELECT * FROM test")
         output = result.fetchall()
 
         self.close_database(db)
@@ -61,7 +61,7 @@ class Leaderboard:
         :param reps: Number of reps for the entry
         """
         cursor = db.cursor()
-        cursor.execute("INSERT INTO leaderboard VALUES" + "('" + name + "'," + str(reps) + ")")
+        cursor.execute("INSERT INTO test VALUES" + "('" + name + "'," + str(reps) + ")")
         db.commit()
 
     def get_min_score(self):
@@ -72,7 +72,7 @@ class Leaderboard:
         db = self.open_database()
         cursor = db.cursor()
 
-        result = cursor.execute("SELECT * FROM leaderboard ORDER BY score ASC LIMIT 1")
+        result = cursor.execute("SELECT * FROM test ORDER BY score ASC LIMIT 1")
         output = result.fetchone()[1]
 
         self.close_database(db)
