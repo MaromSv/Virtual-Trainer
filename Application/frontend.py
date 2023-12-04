@@ -38,7 +38,7 @@ class VirtualTrainerApp:
         
         # self.leaderboard = Leaderboard("Assets/database.db")
     
-        self.leaderboard = Leaderboard("Application/Assets/database.db")
+        self.leaderboard = Leaderboard("Assets/database.db")
 
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
