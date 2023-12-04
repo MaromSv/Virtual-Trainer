@@ -6,7 +6,7 @@ from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
 # from PIL import Image, ImageTk
 from tkinter import simpledialog
-
+# import pydocs
 class VirtualTrainerApp:
     def __init__(self, root):
         self.root = root
@@ -79,7 +79,7 @@ class VirtualTrainerApp:
 
         # data = [("Marom", 23), ("Bilal", 31), ("Danick", 18), ("Thanos", 25), ("Johan", 42), 
         #         ("Marios", 50), ("Nicky", 11), ("Yusef", 5), ("Jan", 10), ("Emma", 8)]
-        self.leaderboard.update_leaderboard(data)
+        # self.leaderboard.update_leaderboard(data)
 
         # TODO: LOAD LEADERBOARD DATA FROM DATABASE OVER HERE
         # self.leaderboard.insert_new_entry("Marom", 100)
