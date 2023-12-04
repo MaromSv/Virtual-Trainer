@@ -141,7 +141,7 @@ class VirtualTrainerApp:
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
         print("Starting Workout of type: " + workout_type)
-        videoPlayer.playVideo("Application\Assets\Video\VID-20231204-WA0002.mp4")
+        videoPlayer.playVideo("Assets\Video\VID-20231204-WA0002.mp4")
 
 
         # Add your workout selection widgets here
