@@ -24,9 +24,9 @@ def connect_database(path):
 
 # Function: create_table(database)
 # 
-# Creates table inside specified database file if it does not exist.
+# Creates tables inside specified database file if they does not exist.
 #
-# Argument: database - the database in which to create the table
+# Argument: database - the database in which to create the tables
 # 
 def create_tables(database):
     cursor = database.cursor()
@@ -69,6 +69,12 @@ def create_tables(database):
     cursor.execute(query)
     database.commit()
 
+# Function: check_tables(database)
+# 
+# Checks if all tables are present in the database
+#
+# Argument: database - the database of which to check the tables
+# 
 def check_tables(database):
     cursor = database.cursor()
 
