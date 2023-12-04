@@ -118,7 +118,6 @@ def pushUpCounter():
         while cap.isOpened():
             ret, frame = cap.read()
             frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
-            # frame = cv2.resize(frame, (1920, 1080))
 
             timeSpent = time.time() - start_time
             timeLeft = 60 - timeSpent #Time left for attempt
