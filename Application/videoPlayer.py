@@ -5,7 +5,7 @@ import pygame
 
 
 def playVideo(path):
-    clip = VideoFileClip(path).resize(1.5)
+    clip = VideoFileClip(path).resize(1.0)
     clip.preview()
     pygame.quit()
 
