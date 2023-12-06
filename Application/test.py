@@ -1,51 +1,39 @@
 import tkinter as tk
-from PIL import Image, ImageTk
-import numpy as np
-from pushupCounter import pushUpCounter
+from tkinter import simpledialog
 
+class DifficultyDialog(simpledialog.Dialog):
+    def __init__(self, parent, title="Difficulty"):
+        self.difficulty = None
+        super().__init__(parent, title)
 
-class VideoApp:
-    def __init__(self, root, image_generator):
-        self.root = root
-        self.image_generator = image_generator
-        self.video_canvas = tk.Canvas(root)
-        self.video_canvas.pack()
+    def body(self, master):
+        tk.Label(master, text="Choose Difficulty:", font=("Helvetica", 12, "bold")).grid(row=0, column=0, columnspan=3, padx=10, pady=10)
 
-        self.photo = None  # Store PhotoImage as a class attribute
+        self.difficulty_var = tk.StringVar()
+        self.difficulty_var.set("easy")
 
-        self.root.after(100, self.update_video)
-        self.root.mainloop()
+        difficulties = ["Easy", "Medium", "Hard"]
+        for i, difficulty in enumerate(difficulties):
+            tk.Radiobutton(master, text=difficulty, variable=self.difficulty_var, value=difficulty.lower(), font=("Helvetica", 10)).grid(row=i+1, column=0, columnspan=3, padx=10, pady=5, sticky="w")
 
-    def update_video(self):
-        try:
-            image = next(self.image_generator)
-            self.display_image(image)
-            self.root.after(100, self.update_video)
-        except StopIteration:
-            # Image sequence is complete
-            pass
+        return None
 
-    def display_image(self, image):
-        # Ensure the image is in the correct format and range
-        image = np.clip(image, 0, 255).astype(np.uint8)
+    def apply(self):
+        self.difficulty = self.difficulty_var.get()
 
-        # Ensure correct color channels and data type
-        if image.shape[-1] != 3:
-            raise ValueError("Image should have 3 color channels (RGB)")
-
-        # Convert the NumPy array to a PIL Image and ensure RGB mode
-        pil_image = Image.fromarray(image, mode="RGB")
-
-        # Convert the PIL Image to PhotoImage format
-        self.photo = ImageTk.PhotoImage(image=pil_image)
-
-        # Update the canvas with the new image
-        self.video_canvas.config(width=self.photo.width(), height=self.photo.height())
-        self.video_canvas.create_image(0, 0, anchor=tk.NW, image=self.photo)
-
-        # Keep a reference to the PhotoImage to prevent garbage collection
-        self.video_canvas.photo = self.photo
-
-if __name__ == "__main__":
+def show_difficulty_dialog():
     root = tk.Tk()
-    app = VideoApp(root,  app = VideoApp(root, pushUpCounter()))
+    root.withdraw()  # Hide the main window
+
+    dialog = DifficultyDialog(root)
+    difficulty_level = dialog.difficulty
+
+    root.destroy()  # Destroy the main window to prevent it from lingering after dialog closes
+
+    return difficulty_level
+
+# Example usage
+chosen_difficulty = show_difficulty_dialog()
+
+
+print(chosen_difficulty)

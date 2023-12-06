@@ -139,10 +139,15 @@ class VirtualTrainerApp:
             return result
 
     def get_input_difficulty(self):
-        result = simpledialog.askstring("", "Enter your name:")
-        if result:
-            # Do something with the user input (e.g., print it)
-            return result
+        root = tk.Tk()
+        root.withdraw()  # Hide the main window
+
+        dialog = DifficultyDialog(root)
+        difficulty_level = dialog.difficulty
+
+        root.destroy()  # Destroy the main window to prevent it from lingering after dialog closes
+
+        return difficulty_level
 
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
