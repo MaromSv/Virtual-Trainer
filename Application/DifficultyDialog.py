@@ -20,20 +20,3 @@ class DifficultyDialog(simpledialog.Dialog):
 
     def apply(self):
         self.difficulty = self.difficulty_var.get()
-
-def show_difficulty_dialog():
-    root = tk.Tk()
-    root.withdraw()  # Hide the main window
-
-    dialog = DifficultyDialog(root)
-    difficulty_level = dialog.difficulty
-
-    root.destroy()  # Destroy the main window to prevent it from lingering after dialog closes
-
-    return difficulty_level
-
-# Example usage
-chosen_difficulty = show_difficulty_dialog()
-
-
-print(chosen_difficulty)
