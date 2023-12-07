@@ -178,7 +178,7 @@ class VirtualTrainerApp:
                 print("You made it onto the leaderboard") 
                 name = self.get_input_name()
                 self.leaderboard.insert_new_entry(reps, name)
-                create_leaderboard_page()
+                self.create_leaderboard_page()
             else:
                 print("You didnt quite make it onto the leaderboard, better luck next time")
 
