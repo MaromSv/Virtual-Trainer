@@ -66,11 +66,16 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>First Name:</label>
+                                                                    <label id="first_name"></label>
+
+                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Last Name:</label>
+                                                                    <label id="last_name"></label>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -78,11 +83,15 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Age:</label>
+                                                                    <label id="age"></label>
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Location:</label>                               
+                                                                    <label>Location:</label>
+                                                                    <label id="location"></label>
+                               
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -90,12 +99,17 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Gender:</label>
+                                                                    <label id="gender"></label>
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Experience:</label>
+                                                                    <label id="experience"></label>
+
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </form>
@@ -121,13 +135,13 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>First Name</label>
-                                                                    <input type="text" id="first_name" placeholder="first name" class="form-control">
+                                                                    <input type="text" id="first_name_enter" placeholder="first name" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Last Name</label>
-                                                                    <input type="text" id="last_name" placeholder="last name" class="form-control">
+                                                                    <input type="text" id="last_name_enter" placeholder="last name" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -135,7 +149,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Age</label>
-                                                                    <input type="text" id="age" placeholder="age" class="form-control">
+                                                                    <input type="text" id="age_enter" placeholder="age" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -173,10 +187,9 @@
                                                         <div class="row">
                                                             <div class="col-md-6 col-xs-6">
                                                                 <div class="text-right mrg-top-5">
-                                                                    <button onclick="submit_personal()" type="button" class="btn btn-primary" id="update_personal_info">Update Personal Info</button>
+                                                                    <button onclick="updateInfo()" type="button" class="btn btn-primary" id="update_personal_info">Update Personal Info</button>
    
                                                                 </div>
-                                                                <script src="home.js"></script>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -218,6 +231,7 @@
 
         </div>
     </div>
+    <script src="home.js"></script>
 
 </body>
 
