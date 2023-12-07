@@ -47,8 +47,11 @@ class Leaderboard:
         db = self.open_database()
         cursor = db.cursor()
 
-        result = cursor.execute("SELECT * FROM leaderboard")
-        output = result.fetchall()
+        result = cursor.execute("SELECT * FROM leaderboard ORDER BY score DESC")
+        if cursor.rowcount != 0 :
+            output = result.fetchall()
+        else:
+            output = 0
 
         self.close_database(db)
 
@@ -73,7 +76,11 @@ class Leaderboard:
         cursor = db.cursor()
 
         result = cursor.execute("SELECT * FROM leaderboard ORDER BY score ASC LIMIT 1")
-        output = result.fetchone()[1]
+
+        if cursor.rowcount != 0 :
+            output = result.fetchone()[1]
+        else:
+            output = 0
 
         self.close_database(db)
 
