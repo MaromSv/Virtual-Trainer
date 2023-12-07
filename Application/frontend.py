@@ -67,7 +67,7 @@ class VirtualTrainerApp:
         #TODO: add explanations or something to the page
         
         # Home Page Widgets
-        label = ttk.Label(home_frame, text="Welcome to Virtual Trainer", font=("Helvetica", 16, "bold"))
+        label = ttk.Label(home_frame, text="Welcome to Virtual Trainer", font=("Helvetica", 30, "bold"))
         label.pack(pady=20)
 
     def create_leaderboard_page(self):
@@ -75,7 +75,7 @@ class VirtualTrainerApp:
         self.notebook.add(leaderboard_frame, text="Leaderboard")
 
         # Leaderboard Page Widgets
-        leaderboard_label = ttk.Label(leaderboard_frame, text="Leaderboard", font=("Helvetica", 16, "bold"))
+        leaderboard_label = ttk.Label(leaderboard_frame, text="Leaderboard", font=("Helvetica", 30, "bold"))
         leaderboard_label.pack(pady=20)
 
         # Create a Treeview widget for the leaderboard
@@ -116,21 +116,25 @@ class VirtualTrainerApp:
         self.notebook.add(workout_frame, text="Start workout")
 
         # Workout Page Widgets
-        label = ttk.Label(workout_frame, text="Select a Workout", font=("Helvetica", 16, "bold"))
+        label = ttk.Label(workout_frame, text="Select a Workout", font=("Helvetica", 30, "bold"))
         label.pack(pady=20)
 
         # Add Buttons for Each Type of Workout
-        button1 = ttk.Button(workout_frame, text="Chest Workout", command=lambda: self.start_workout("Chest"), takefocus=False)
-        button1.pack(pady=10)
+        custom_style = ttk.Style()
+        custom_style.configure("TButton", font=("Helvetica", 20))  # Change the font size as needed
 
-        button2 = ttk.Button(workout_frame, text="Cardio Workout", command=lambda: self.start_workout("Cardio"), takefocus=False)
-        button2.pack(pady=10)
+        button1 = ttk.Button(workout_frame, text="Chest Workout", command=lambda: self.start_workout("Chest"), takefocus=False, style="TButton")
+        button1.pack(pady=20)
 
-        button3 = ttk.Button(workout_frame, text="Core Workout", command=lambda: self.start_workout("Core"), takefocus=False)
-        button3.pack(pady=10)
+        button2 = ttk.Button(workout_frame, text="Cardio Workout", command=lambda: self.start_workout("Cardio"), takefocus=False, style="TButton")
+        button2.pack(pady=20)
 
-        button4 = ttk.Button(workout_frame, text="Legs Workout", command=lambda: self.start_workout("Legs"), takefocus=False)
-        button4.pack(pady=10)
+        button3 = ttk.Button(workout_frame, text="Core Workout", command=lambda: self.start_workout("Core"), takefocus=False, style="TButton")
+        button3.pack(pady=20)
+
+        button4 = ttk.Button(workout_frame, text="Legs Workout", command=lambda: self.start_workout("Legs"), takefocus=False, style="TButton")
+        button4.pack(pady=20)
+
 
 
 
