@@ -1,4 +1,5 @@
-import sqlite3 from './package.json';
+import sqlite3 from "sqlite3";
+import { open } from "sqlite";
 
 const button = document.getElementById('createAccButton');
 if(button) {
@@ -6,11 +7,16 @@ if(button) {
 
 }
 
-function myFunction() {
-  var str = "hoi";
-  console.log(str);
-}
-// (document.getElementById('email').value
+const dbPromise = open({
+  filename: "data.db",
+  driver: sqlite3.Database,
+});
+
+app.get("/", async (req, res) => {
+  const db = await dbPromise;
+  const users = await db.all("SELECT * FROM users;");
+  res.render("home", { users });
+});
 
 function createAcc() {
 var email = document.getElementById("email").value;
@@ -18,35 +24,7 @@ var password =document.getElementById("password").value;
 console.log("email: ", email);
 console.log("password: ", password); 
 
-let db = new sqlite3.Database('Application/Assets/database.db', sqlite3.OPEN_READWRITE, (err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Connected to the SQlite database.');
-});
-//const fs = require('fs');
-// const sqlite3 = require('sqlite3');
-//get email and password and insert into db
 
-
-document.getElementById("password").value;
-db.run('INSERT INTO users(email,password) VALUES(?,?)', [email,password], function(err){
-    if (err) {
-        return console.log(err.message);
-      }
-      // get the last insert id
-      console.log(`A row has been inserted with rowid ${this.lastID}`);
-
-  
-})
-
-//close db
-db.close((err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Close the database connection.');
-});
 }
  
   
