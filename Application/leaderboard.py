@@ -57,15 +57,17 @@ class Leaderboard:
 
         return output
 
-    def insert_new_entry(self, db, name, reps):
+    def insert_new_entry(self, name, reps):
         """
         Insert a new entry into the leaderboard.
         :param name: Name of the entry
         :param reps: Number of reps for the entry
         """
+        db = self.open_database()
         cursor = db.cursor()
         cursor.execute("INSERT INTO leaderboard VALUES" + "('" + name + "'," + str(reps) + ")")
         db.commit()
+        self.close_database(db)
 
     def get_min_score(self):
         """
