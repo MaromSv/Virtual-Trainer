@@ -142,9 +142,9 @@ class VirtualTrainerApp:
         while not resultValid:
             result = sd.askinteger("Difficulty", "Enter the desired difficulty (1-3): ")
 
-            possibleInputs = [1, 2, 3]
+            validInputs = [None, 1, 2, 3]
 
-            if result not in possibleInputs:
+            if result not in validInputs:
                 messagebox.showinfo("Error", "Pick one of the following [1, 2, 3]")
             else:
                 resultValid = True
