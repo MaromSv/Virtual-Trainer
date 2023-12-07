@@ -80,7 +80,7 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
     if leftAngle > 160 and rightAngle > 160:
         if stage == "middle":
             print("go lower")
-            playSound("Assets\Audio\goLower.mp3")
+            playSound("Application\Assets\Audio\goLower.mp3")
         stage = "up"
 
     if leftAngle < 90 and rightAngle < 90 and stage =='up': 
@@ -91,14 +91,14 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
         if straightBack:
             counter +=1
             print(counter)
-            audioPath = f"Assets\\Audio\\numbers\\{str(counter)}.mp3"
+            audioPath = f"Application\\Assets\\Audio\\numbers\\{str(counter)}.mp3"
             try:
                 playSound(audioPath)
             except:
                 print("")
         else:
             print("Keep Your Back Straight")
-            playSound("Assets\Audio\keepBackStraightAudio.mp3")
+            playSound("Application\Assets\Audio\keepBackStraightAudio.mp3")
     return stage, counter
 
 def pushUpCounter():
