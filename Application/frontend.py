@@ -6,7 +6,8 @@ from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
 from tkinter import simpledialog as sd
 import videoPlayer
-import DifficultyDialog
+from tkinter import messagebox
+
 
 class VirtualTrainerApp:
     def __init__(self, root):
@@ -119,16 +120,16 @@ class VirtualTrainerApp:
         label.pack(pady=20)
 
         # Add Buttons for Each Type of Workout
-        button1 = ttk.Button(workout_frame, text="Core Workout", command=lambda: self.start_workout("Core Workout"), takefocus=False)
+        button1 = ttk.Button(workout_frame, text="Chest Workout", command=lambda: self.start_workout("Chest"), takefocus=False)
         button1.pack(pady=10)
 
-        button2 = ttk.Button(workout_frame, text="Cardio Workout", command=lambda: self.start_workout("Back Workout"), takefocus=False)
+        button2 = ttk.Button(workout_frame, text="Cardio Workout", command=lambda: self.start_workout("Cardio"), takefocus=False)
         button2.pack(pady=10)
 
-        button3 = ttk.Button(workout_frame, text="Chest Workout", command=lambda: self.start_workout("Chest Workout"), takefocus=False)
+        button3 = ttk.Button(workout_frame, text="Core Workout", command=lambda: self.start_workout("Core"), takefocus=False)
         button3.pack(pady=10)
 
-        button4 = ttk.Button(workout_frame, text="Legs Workout", command=lambda: self.start_workout("Legs Workout"), takefocus=False)
+        button4 = ttk.Button(workout_frame, text="Legs Workout", command=lambda: self.start_workout("Legs"), takefocus=False)
         button4.pack(pady=10)
 
 
@@ -138,25 +139,40 @@ class VirtualTrainerApp:
         if result:
             # Do something with the user input (e.g., print it)
             return result
+        #TODO:HANDLE ERRORS
 
 
-    def show_difficulty_dialog(self):
-        root = tk.Tk()
-        root.withdraw()  # Hide the main window
+   
+    def get_difficulty(self):
+        resultValid = False
+        while not resultValid:
+            result = sd.askinteger("Difficulty", "Enter the desired difficulty (1-3): ")
 
-        dialog = DifficultyDialog(root)
-        difficulty_level = dialog.difficulty
+            possibleInputs = [1, 2, 3]
 
-        root.destroy()  # Destroy the main window to prevent it from lingering after dialog closes
-
-        return difficulty_level
+            if result not in possibleInputs:
+                messagebox.showinfo("Error", "Pick one of the following [1, 2, 3]")
+            else:
+                resultValid = True
+        
+        return result
 
     def start_workout(self, workout_type):
+        diff = self.get_difficulty()
+        print(workout_type)
+        if (workout_type == 'Chest'):
+            videoPlayer.playVideo("Application\Assets\Video\pushup" + str(diff) + ".mp4")
+        # elif (workout_type == 'Core'):
+        #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
+        # elif (workout_type == 'Legs'):
+        #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
+        # else: 
+        #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
+
+
         # Logic for starting workout type 1
-        diff = self.show_difficulty_dialog()
-        print(diff)
-        print("Starting Workout of type: " + workout_type)
-        # videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
+        
+        
 
 
         # Add your workout selection widgets here
