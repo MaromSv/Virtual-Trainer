@@ -40,7 +40,7 @@ class VirtualTrainerApp:
         
         # self.leaderboard = Leaderboard("Assets/database.db")
     
-        self.leaderboard = Leaderboard("Application/Assets/database.db")
+        self.leaderboard = Leaderboard("Application\Assets\db\database.db")
 
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
@@ -87,16 +87,6 @@ class VirtualTrainerApp:
             self.leaderboard_tree.heading(col, text=col)
             self.leaderboard_tree.column(col, anchor="center")
 
-
-        # data = [("Marom", 23), ("Bilal", 31), ("Danick", 18), ("Thanos", 25), ("Johan", 42), 
-        #         ("Marios", 50), ("Nicky", 11), ("Yusef", 5), ("Jan", 10), ("Emma", 8)]
-        # self.leaderboard.update_leaderboard(data)
-
-        # TODO: LOAD LEADERBOARD DATA FROM DATABASE OVER HERE
-        # self.leaderboard.insert_new_entry("Marom", 100)
-
-
-        # print(self.leaderboard.get_leaderboard_data())
         # Get leaderboard data
         leaderboard_data = self.leaderboard.get_leaderboard_data()
 
@@ -173,21 +163,6 @@ class VirtualTrainerApp:
         # else: 
         #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
 
-
-        # Logic for starting workout type 1
-        
-        
-
-
-        # Add your workout selection widgets here
-
-
-
-    def convert_opencv_to_tkinter(self, opencv_image):
-        # Convert the OpenCV image to a PhotoImage
-        pil_image = Image.fromarray(opencv_image)
-        tk_image = ImageTk.PhotoImage(pil_image)
-        return tk_image
     
     def start_pushup_counter(self):
         reps = pushUpCounter()
