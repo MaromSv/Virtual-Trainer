@@ -4,8 +4,9 @@ import cv2
 from ttkthemes import ThemedStyle
 from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
-from tkinter import simpledialog
+from tkinter import simpledialog as sd
 import videoPlayer
+import DifficultyDialog
 
 class VirtualTrainerApp:
     def __init__(self, root):
@@ -45,7 +46,7 @@ class VirtualTrainerApp:
 
 
     def create_widgets(self):
-        # Create a notebook (tabbed interface)
+        # Create a notebook (Dtabbed interface)
         self.notebook = ttk.Notebook(self.root, style = 'lefttab.TNotebook')
 
         # Create pages
@@ -133,21 +134,29 @@ class VirtualTrainerApp:
 
 
     def get_input_name(self):
-        result = simpledialog.askstring("Name", "Enter your name:")
+        result = sd.askstring("Name", "Enter your name:")
         if result:
             # Do something with the user input (e.g., print it)
             return result
 
-    def get_input_difficulty(self):
-        result = simpledialog.askstring("", "Enter your name:")
-        if result:
-            # Do something with the user input (e.g., print it)
-            return result
+
+    def show_difficulty_dialog(self):
+        root = tk.Tk()
+        root.withdraw()  # Hide the main window
+
+        dialog = DifficultyDialog(root)
+        difficulty_level = dialog.difficulty
+
+        root.destroy()  # Destroy the main window to prevent it from lingering after dialog closes
+
+        return difficulty_level
 
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
+        diff = self.show_difficulty_dialog()
+        print(diff)
         print("Starting Workout of type: " + workout_type)
-        videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
+        # videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
 
 
         # Add your workout selection widgets here

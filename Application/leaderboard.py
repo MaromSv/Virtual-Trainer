@@ -47,7 +47,7 @@ class Leaderboard:
         db = self.open_database()
         cursor = db.cursor()
 
-        result = cursor.execute("SELECT * FROM leaderboard")
+        result = cursor.execute("SELECT * FROM leaderboard ORDER BY score DESC")
         output = result.fetchall()
 
         self.close_database(db)
