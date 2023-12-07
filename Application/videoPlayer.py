@@ -5,8 +5,7 @@ import pygame
 
 
 def playVideo(path):
+    pygame.init()
     clip = VideoFileClip(path).resize(1.0)
     clip.preview()
     pygame.quit()
-
-# playVideo('Application\\Assets\\Video\\baby.mp4')
