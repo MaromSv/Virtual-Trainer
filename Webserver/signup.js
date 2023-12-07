@@ -26,7 +26,7 @@ var password2 = document.getElementById("password2").value;
 var firstname = document.getElementById("first_name").value;
 var lastname = document.getElementById("last_name").value
 var age = document.getElementById("age").value;
-var location = document.querySelector('input[name="location"]:checked').value;
+var loc = document.querySelector('input[name="location"]:checked').value;
 var gender = document.querySelector('input[name="gender"]:checked').value;
 var experience = document.querySelector('input[name="experience"]:checked').value;
 
@@ -40,7 +40,7 @@ if(password == password2){
   userFirstName.push(firstname);
   userLastName.push(lastname);
   userAge.push(age);
-  locations.push(location);
+  locations.push(loc);
   genders.push(gender);
   experiences.push(experience);
 } else {
@@ -52,13 +52,14 @@ if(password == password2){
 console.log("Email array:" + userEmail);
 console.log("Password array:" + userPw);
 
-localStorage["Emails"] = JSON.stringify(userEmail);
-localStorage["Passwords"] = JSON.stringify(userPw);
+localStorage["userEmails"] = JSON.stringify(userEmail);
+localStorage["userPasswords"] = JSON.stringify(userPw);
 localStorage["userFirstNames"] = JSON.stringify(userFirstName);
+console.log(userFirstName);
 localStorage["userLastNames"] = JSON.stringify(userLastName);
-localStorage["userAge"] = JSON.stringify(userAge);
-localStorage["locations"] = JSON.stringify(locations);
-localStorage["genders"] = JSON.stringify(genders);
-localStorage["experiences"] = JSON.stringify(experiences);
+localStorage["userAges"] = JSON.stringify(userAge);
+localStorage["userLocations"] = JSON.stringify(locations);
+localStorage["userGenders"] = JSON.stringify(genders);
+localStorage["userExperiences"] = JSON.stringify(experiences);
 }
  

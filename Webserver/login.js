@@ -1,6 +1,11 @@
-var emails = JSON.parse(localStorage["Emails"]);
-var passwords = JSON.parse(localStorage["Passwords"]);
-
+var emails = JSON.parse(localStorage["userEmails"]);
+var passwords = JSON.parse(localStorage["userPasswords"]);
+var firstnames = JSON.parse(localStorage["userFirstNames"]);
+var lastnames = JSON.parse(localStorage["userLastNames"]);
+var ages = JSON.parse(localStorage["userAges"]);
+var locations = JSON.parse(localStorage["userLocations"]);
+var genders = JSON.parse(localStorage["userGenders"]);
+var experiences = JSON.parse(localStorage["userExperiences"]);
 
 //button listener for login
 const loginbtn = document.getElementById('loginbutton');
@@ -41,6 +46,16 @@ function login(){
   
     if(correctEmail == true && correctPw == true){
       console.log("Login successful");
+      localStorage.setItem("email", email);
+      localStorage.setItem("firstname", firstnames.at(0));
+      localStorage.setItem("lastname", lastnames.at(0));
+      localStorage.setItem("age", ages.at(0));
+      localStorage.setItem("loc", locations.at(0));
+      localStorage.setItem("gender", genders.at(0));
+      localStorage.setItem("experience", experiences.at(0));
+
+
+
       window.location.href = 'home.html';
 
     }
