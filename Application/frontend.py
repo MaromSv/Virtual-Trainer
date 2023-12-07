@@ -4,14 +4,15 @@ import cv2
 from ttkthemes import ThemedStyle
 from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
-# from PIL import Image, ImageTk
-from tkinter import simpledialog
-# import pydocs
+from tkinter import simpledialog as sd
+import videoPlayer
+import DifficultyDialog
+
 class VirtualTrainerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Virtual Trainer App")
-        self.root.geometry("600x820")  # Adjusted for a tablet-sized screen
+        self.root.geometry("600x800")  # Adjusted for a tablet-sized screen
 
         # Apply a themed style
         self.style = ThemedStyle(self.root)
@@ -23,6 +24,7 @@ class VirtualTrainerApp:
         self.style.map("TButton", background=[('active', '#FF5733')])  # Background color for buttons on mouse hover
 
         # Customize the color for the notebook and tabs
+        self.style.configure('lefttab.TNotebook', tabposition='s')
         self.style.configure("TNotebook", background="#1E1E1E")  # Original gray background color for the notebook
         self.style.configure("TNotebook.Tab", background="#1E1E1E", foreground="#FFD700")  # Tab color
 
@@ -30,14 +32,22 @@ class VirtualTrainerApp:
         self.style.map("TNotebook.Tab", foreground=[('selected', '#FFD700'), ('active', '#FFD700')])
         self.style.configure("TNotebook.Tab", focuscolor=self.style.configure(".")["background"])
 
-        self.leaderboard = Leaderboard("Assets/database.db")
+        #Size/Shape of tabs:
+        self.style.configure("TNotebook.Tab", padding = (52, 20), font=('Helvetica', 15), tabmargins=0)
+       
+
+        
+        # self.leaderboard = Leaderboard("Assets/database.db")
+    
+        self.leaderboard = Leaderboard("Application/Assets/database.db")
+
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
 
 
     def create_widgets(self):
-        # Create a notebook (tabbed interface)
-        self.notebook = ttk.Notebook(self.root)
+        # Create a notebook (Dtabbed interface)
+        self.notebook = ttk.Notebook(self.root, style = 'lefttab.TNotebook')
 
         # Create pages
         self.create_home_page()
@@ -85,7 +95,7 @@ class VirtualTrainerApp:
         # self.leaderboard.insert_new_entry("Marom", 100)
 
 
-        print(self.leaderboard.get_leaderboard_data())
+        # print(self.leaderboard.get_leaderboard_data())
         # Get leaderboard data
         leaderboard_data = self.leaderboard.get_leaderboard_data()
 
@@ -123,30 +133,35 @@ class VirtualTrainerApp:
 
 
 
-    def get_input(self):
-        result = simpledialog.askstring("Name", "Enter your name:")
+    def get_input_name(self):
+        result = sd.askstring("Name", "Enter your name:")
         if result:
             # Do something with the user input (e.g., print it)
             return result
 
+
+    def show_difficulty_dialog(self):
+        root = tk.Tk()
+        root.withdraw()  # Hide the main window
+
+        dialog = DifficultyDialog(root)
+        difficulty_level = dialog.difficulty
+
+        root.destroy()  # Destroy the main window to prevent it from lingering after dialog closes
+
+        return difficulty_level
+
     def start_workout(self, workout_type):
         # Logic for starting workout type 1
+        diff = self.show_difficulty_dialog()
+        print(diff)
         print("Starting Workout of type: " + workout_type)
+        # videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
 
 
         # Add your workout selection widgets here
 
-    def create_pushup_counter_page(self):
-         # Hide the tabs during push-up counter
-        self.notebook.pack_forget()
 
-        # Create a new frame for push-up counter
-        self.pushup_counter_frame = ttk.Frame(self.root)
-        self.pushup_counter_frame.pack(expand=True, fill="both")
-
-        # Add a button to go back to the leaderboard
-        back_to_leaderboard_button = ttk.Button(self.pushup_counter_frame, text="Back to Leaderboard",  command=self.back_to_leaderboard, takefocus=False)
-        back_to_leaderboard_button.pack(pady=20)
 
     def convert_opencv_to_tkinter(self, opencv_image):
         # Convert the OpenCV image to a PhotoImage
@@ -155,8 +170,6 @@ class VirtualTrainerApp:
         return tk_image
     
     def start_pushup_counter(self):
-        #TODO: ADD threading 
-        self.create_pushup_counter_page()
         reps = pushUpCounter()
 
 
@@ -168,7 +181,7 @@ class VirtualTrainerApp:
 
             if reps > minLeaderBoard or lengthLeaderboard < 10:
                 print("You made it onto the leaderboard") 
-                name = self.get_input()
+                name = self.get_input_name()
                 self.leaderboard.insert_new_entry(reps, name)
             else:
                 print("You didnt quite make it onto the leaderboard, better luck next time")
@@ -176,14 +189,6 @@ class VirtualTrainerApp:
         except:
             print("PushUp Counter failed") #Reps = None
         
-
-    def back_to_leaderboard(self):
-        # Destroy the pushup_counter_frame
-        if self.pushup_counter_frame:
-            self.pushup_counter_frame.destroy()
-
-        # Show the tabs again
-        self.notebook.pack(expand=True, fill="both")
 
     def navigate_to_home(self):
         self.notebook.select(0)  # Switch to the Home page
