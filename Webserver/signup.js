@@ -31,19 +31,20 @@ var gender = document.querySelector('input[name="gender"]:checked').value;
 var experience = document.querySelector('input[name="experience"]:checked').value;
 
 
-
 //verify passwords
 if(password == password2){
-  userEmail.push(email);
-  userPw.push(password);
-  userPw2.push(password2);
-  userFirstName.push(firstname);
-  userLastName.push(lastname);
-  userAge.push(age);
-  locations.push(loc);
-  genders.push(gender);
-  experiences.push(experience);
+    userEmail.push(email);
+    userPw.push(password);
+    userPw2.push(password2);
+    userFirstName.push(firstname);
+    userLastName.push(lastname);
+    userAge.push(age);
+    locations.push(loc);
+    genders.push(gender);
+    experiences.push(experience);
+    document.getElementById("incorrect_entries").innerHTML = "Account Created";
 } else {
+  document.getElementById("incorrect_entries").innerHTML = "Passwords not matching";
   console.log("treis elies");
 }
 
