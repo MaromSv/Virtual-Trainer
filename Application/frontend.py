@@ -173,9 +173,9 @@ class VirtualTrainerApp:
         self.create_widgets()
 
     def start_pushup_counter(self):
-        # reps = pushUpCounter()
+        reps = pushUpCounter()
 
-        reps = 7
+        
         minLeaderBoard = self.leaderboard.get_min_score()
 
         lengthLeaderboard = len(self.leaderboard.get_leaderboard_data())
