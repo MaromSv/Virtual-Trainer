@@ -58,6 +58,89 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-heading border bottom">
+                                        <h4 class="card-title">Current Buddy</h4>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="mrg-top-40">
+                                            <div class="row">
+                                                <div class="col-md-8 ml-auto mr-auto">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Email:</label>
+                                                                    <label id="email_current_buddy"></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>First Name:</label>
+                                                                    <label id="first_name_current_buddy"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Last Name:</label>
+                                                                    <label id="last_name_current_buddy"></label>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Age:</label>
+                                                                    <label id="age_current_buddy"></label>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Location:</label>
+                                                                    <label id="location_current_buddy"></label>
+                               
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Gender:</label>
+                                                                    <label id="gender_current_buddy"></label>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Experience:</label>
+                                                                    <label id="experience_current_buddy"></label>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Common days available:</label>
+                                                                    <label id="days_available_current_buddy"></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-heading border bottom">
                                         <h4 class="card-title">Find a Buddy Form</h4>
                                     </div>
                                     <div class="card-block">
@@ -116,9 +199,20 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Age Group Preference:</label><br>
+                                                                    <input class="age_preference" type="checkbox" id="age_pref1" name="age_pref1" value="Same age group">
+                                                                    <label for="age_pref1"> Same age group</label><br>
+                                                                    <input class="age_preference" type="checkbox" id="age_pref2" name="age_pref2" value="Any age group">
+                                                                    <label for="age_pref1"> Any age group</label><br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
                                                             <div class="col-md-6 col-xs-6">
                                                                 <div class="text-right mrg-top-5">
-                                                                    <button onclick="submit_buddy()" type="submit" class="btn btn-primary">Submit Form</button>
+                                                                    <button onclick="Find_Buddy()" type="button" class="btn btn-primary">Submit Form</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -136,7 +230,7 @@
 
         </div>
     </div>
-
+    <script src="buddy.js"></script>
 </body>
 
 </html>
