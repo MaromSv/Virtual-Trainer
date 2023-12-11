@@ -128,12 +128,10 @@ class VirtualTrainerApp:
         button4 = ttk.Button(workout_frame, text="Legs Workout", command=lambda: self.start_workout("Legs"), takefocus=False, style="TButton")
         button4.pack(pady=20)
 
-    def show_on_screen_keyboard(event):
-         os.system("C:\\PROGRA~1\\COMMON~1\\MICROS~1\\ink\\tabtip.exe")
+
 
 
     def get_input_name(self):
-        show_on_screen_keyboard()
         result = sd.askstring("Name", "Enter your name:")
         if result:
             # Do something with the user input (e.g., print it)
@@ -173,8 +171,8 @@ class VirtualTrainerApp:
         self.create_widgets()
 
     def start_pushup_counter(self):
-        reps = pushUpCounter()
-
+        # reps = pushUpCounter()
+        reps = 9
         
         minLeaderBoard = self.leaderboard.get_min_score()
 
