@@ -65,7 +65,8 @@ class Leaderboard:
         """
         db = self.open_database()
         cursor = db.cursor()
-        cursor.execute("INSERT INTO leaderboard VALUES" + "('" + name + "'," + str(reps) + ")")
+        query = "INSERT INTO leaderboard VALUES (?, ?)"
+        cursor.execute(query, (name, reps))
         db.commit()
         self.close_database(db)
 
@@ -77,14 +78,16 @@ class Leaderboard:
         db = self.open_database()
         cursor = db.cursor()
 
-        result = cursor.execute("SELECT * FROM leaderboard ORDER BY score ASC LIMIT 1")
-
-        if cursor.rowcount != 0 :
-            output = result.fetchone()[1]
-        else:
-            output = 0
+        result = cursor.execute("SELECT score FROM leaderboard ORDER BY score DESC LIMIT 1 OFFSET 9;")
+        result = result.fetchall()[0][0]
+        # if cursor.rowcount != 0 :
+        #     output = result.fetchone()[1]
+        # else:
+        #     output = 0
 
         self.close_database(db)
 
-        return output
+        return result
     
+# leaderboard = Leaderboard("Application\Assets\db\database.db")
+# print(type(leaderboard.get_min_score()))
