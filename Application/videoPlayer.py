@@ -8,4 +8,4 @@ def playVideo(path):
     pygame.init()
     clip = VideoFileClip(path).resize(1.0)
     clip.preview()
-    pygame.quit()
+    pygame.display.quit()

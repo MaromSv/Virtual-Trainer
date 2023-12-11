@@ -164,14 +164,14 @@ def pushUpCounter():
                 straightBack = straight_Back(leftShoulder, rightShoulder, rightHip, leftHip)
 
                 # Visualize angles
-                cv2.putText(image, str(leftAngle), 
-                            tuple(np.multiply(leftElbow, [640, 480]).astype(int)), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-                                    )
-                cv2.putText(image, str(rightAngle), 
-                    tuple(np.multiply(rightElbow, [640, 480]).astype(int)), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-                        )
+                # cv2.putText(image, str(leftAngle), 
+                #             tuple(np.multiply(leftElbow, [640, 480]).astype(int)), 
+                #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
+                #                     )
+                # cv2.putText(image, str(rightAngle), 
+                #     tuple(np.multiply(rightElbow, [640, 480]).astype(int)), 
+                #     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
+                #         )
                 
                 onGround = on_the_ground(rightThumb, leftThumb, rightHip, leftHip)
 
@@ -202,10 +202,10 @@ def pushUpCounter():
                         cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 2, cv2.LINE_AA)
             
             # Stage data
-            cv2.putText(image, 'STAGE', (180,12), 
+            cv2.putText(image, 'STAGE', (300,12), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 1, cv2.LINE_AA)
             cv2.putText(image, stage, 
-                        (180,60), 
+                        (300,60), 
                         cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 2, cv2.LINE_AA)
             
         
@@ -227,3 +227,4 @@ def pushUpCounter():
 
         cap.release()
         cv2.destroyAllWindows()
+

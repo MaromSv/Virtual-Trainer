@@ -7,6 +7,7 @@ from pushupCounter import pushUpCounter
 from tkinter import simpledialog as sd
 import videoPlayer
 from tkinter import messagebox
+import subprocess
 
 
 class VirtualTrainerApp:
@@ -14,7 +15,7 @@ class VirtualTrainerApp:
         self.root = root
         self.root.title("Virtual Trainer App")
         self.root.geometry("600x800")  # Adjusted for a tablet-sized screen
-
+        self.root.attributes('-fullscreen', True)
         # Apply a themed style
         self.style = ThemedStyle(self.root)
         self.style.set_theme("equilux")  # You can choose a different theme
@@ -89,6 +90,8 @@ class VirtualTrainerApp:
 
         # Get leaderboard data
         leaderboard_data = self.leaderboard.get_leaderboard_data()
+        leaderboard_data = sorted(leaderboard_data, key=lambda x: int(x[1]), reverse=True)
+
 
         # Insert data into the Treeview
         for idx, row in enumerate(leaderboard_data, start=1):
@@ -156,44 +159,49 @@ class VirtualTrainerApp:
         print(workout_type)
         if (workout_type == 'Chest'):
             videoPlayer.playVideo("Application\Assets\Video\pushup" + str(diff) + ".mp4")
-        # elif (workout_type == 'Core'):
-        #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
-        # elif (workout_type == 'Legs'):
-        #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
+        elif (workout_type == 'Core'):
+            videoPlayer.playVideo("Application\Assets\Video\situp" + str(diff) + ".mp4")
+        elif (workout_type == 'Legs'):
+            videoPlayer.playVideo("Application\Assets\Video\squat" + str(diff) + ".mp4")
         # else: 
         #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
 
-    
+    def refresh_page(self):
+        self.notebook.destroy()
+        self.create_widgets()
+
     def start_pushup_counter(self):
         reps = pushUpCounter()
-
-
+        # reps = 9
+        
         minLeaderBoard = self.leaderboard.get_min_score()
 
         lengthLeaderboard = len(self.leaderboard.get_leaderboard_data())
-    
-        try:
+        print(minLeaderBoard)
+        # try:
 
-            if reps > minLeaderBoard or lengthLeaderboard < 10:
-                print("You made it onto the leaderboard") 
-                name = self.get_input_name()
-                self.leaderboard.insert_new_entry(reps, name)
-                self.create_leaderboard_page()
-            else:
-                print("You didnt quite make it onto the leaderboard, better luck next time")
+        if reps > minLeaderBoard or lengthLeaderboard < 10:
+            print("You made it onto the leaderboard") 
+            name = self.get_input_name()
+            self.leaderboard.insert_new_entry(name, reps)
+            print(self.leaderboard.get_leaderboard_data)
+            self.refresh_page()
+            self.navigate_to_leaderboard()
+        else:
+            print("You didnt quite make it onto the leaderboard, better luck next time")
 
-        except:
-            print("PushUp Counter failed") #Reps = None
+        # except:
+        #     print("PushUp Counter failed") #Reps = None
         
 
     def navigate_to_home(self):
         self.notebook.select(0)  # Switch to the Home page
 
     def navigate_to_leaderboard(self):
-        self.notebook.select(1)  # Switch to the Leaderboard page
+        self.notebook.select(2)  # Switch to the Leaderboard page
 
     def navigate_to_workout(self):
-        self.notebook.select(2)  # Switch to the Workout page
+        self.notebook.select(1)  # Switch to the Workout page
 
 if __name__ == "__main__":
     root = tk.Tk()
