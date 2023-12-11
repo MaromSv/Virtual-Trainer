@@ -158,10 +158,10 @@ class VirtualTrainerApp:
         print(workout_type)
         if (workout_type == 'Chest'):
             videoPlayer.playVideo("Application\Assets\Video\pushup" + str(diff) + ".mp4")
-        # elif (workout_type == 'Core'):
-        #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
-        # elif (workout_type == 'Legs'):
-        #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
+        elif (workout_type == 'Core'):
+            videoPlayer.playVideo("Application\Assets\Video\situp" + str(diff) + ".mp4")
+        elif (workout_type == 'Legs'):
+            videoPlayer.playVideo("Application\Assets\Video\squat" + str(diff) + ".mp4")
         # else: 
         #     videoPlayer.playVideo("Assets\Video\VID-20231204-WA0008.mp4")
 
