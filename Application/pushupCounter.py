@@ -40,7 +40,7 @@ def straight_Back(leftShoulder, rightShoulder, rightHip, leftHip):
 
     distLeft = distance_two_points(leftShoulder, leftHip)
 
-    if (distLeft + distRight < 0.5):
+    if (distLeft + distRight < 0.3):
         return True
     else:
         return False
