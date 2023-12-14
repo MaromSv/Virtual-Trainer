@@ -120,7 +120,7 @@ def pushUpCounter():
             frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
             timeSpent = time.time() - start_time
-            timeLeft = 60 - timeSpent #Time left for attempt
+            timeLeft = 30 - timeSpent #Time left for attempt
 
             # frame = frame[0:820, 0:600]
             # Recolor image to RGB
@@ -156,7 +156,7 @@ def pushUpCounter():
                 # print("thumb: " + str(rightThumb[1]))
                 # print("hip: " + str(rightHip[1]))
                 # print("Shoulder: " + str(rightShoulder[1]))
-                print(abs(rightThumb[1] - rightHip[1]) < 0.05)
+                print(abs(rightThumb[1] -rightHip[1]) < 0.05)
 
                 # Calculate angle
                 leftAngle = calculate_angle(leftShoulder, leftElbow, leftWrist)
