@@ -184,7 +184,7 @@ def pushUpCounter():
             
             # Render curl counter
             # Setup status box
-            cv2.rectangle(image, (0,0), (300,70), (245,117,16), -1)
+            cv2.rectangle(image, (0,0), (450,70), (245,117,16), -1)
 
 
             # Time left
