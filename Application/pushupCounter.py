@@ -77,13 +77,13 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
     if onGround: #Code for if we want to make it number of pushups in a row
         print("Attempt Complete")
 
-    if leftAngle > 150 and rightAngle > 150:
+    if leftAngle > 155 and rightAngle > 155:
         if stage == "middle":
             print("go lower")
             playSound("Application\Assets\Audio\goLower.mp3")
         stage = "up"
 
-    if leftAngle < 90 and rightAngle < 90 and stage =='up': 
+    if leftAngle < 100 and rightAngle < 100 and stage =='up': 
         stage = "middle"
 
     if leftAngle < 65 and rightAngle < 65 and stage =='middle': 
