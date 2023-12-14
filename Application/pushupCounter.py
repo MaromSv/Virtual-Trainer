@@ -114,7 +114,7 @@ def pushUpCounter():
     start_time = time.time()
     
     ## Setup mediapipe instance
-    with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
+    with mp_pose.Pose(min_detection_confidence=0.8, min_tracking_confidence=0.8) as pose:
         while cap.isOpened():
             ret, frame = cap.read()
             frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
