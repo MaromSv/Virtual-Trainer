@@ -1,61 +1,47 @@
-#Class for the leaderboard so that we can use OOP
-import sqlite3
-import os
+import requests
+import json
 
 class Leaderboard:
-    def __init__(self, path):
-        self.path = path
+    def __init__(self, url):
+        self.url = url
+        print("Opening Database with URL: " + url)
 
-        if not os.path.exists(path):
-            f = open(path, "x")
-            print("Database created at: " + path)
-    
-        print("Connecting to Database: " + path)
-        db = self.open_database()
+        req = requests.get(self.url)
 
-        cursor = db.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS leaderboard(name, score)")
-        self.close_database(db)
-        print("Database initialisation complete.")
-
-    def open_database(self):
-        db = sqlite3.connect(self.path)
-        return db
-    
-    def close_database(self, db):
-        db.commit()
-        db.close()
+        if not req.ok:
+            print("Error! Could not load database!")
+            return
         
+        print("Database initialisation complete.")
+    
+    def execute_query(self, query):
+        query = self.url + "/query/?ordering=&export_json=&sql=" + query
+
+        req = requests.get(query)
+        data = json.loads(req.text)
+
+        return data
 
     def update_leaderboard(self, data):
         """
         Update the leaderboard with new data.
         :param data: List of tuples (name, reps)
         """
-        db = self.open_database()
-
-        for entry in data:        
-            self.insert_new_entry(db, entry[0], entry[1])
-
-        self.close_database(db)
+        return
 
     def get_leaderboard_data(self):
         """
         Get the current leaderboard data.
         :return: List of tuples (name, reps) ordered by reps in descending order
         """
-        db = self.open_database()
-        cursor = db.cursor()
+        result = self.execute_query("SELECT+*+FROM+leaderboard+ORDER+BY+score+DESC")
+        data = []
 
-        result = cursor.execute("SELECT * FROM leaderboard ORDER BY score DESC")
-        if cursor.rowcount != 0 :
-            output = result.fetchall()
-        else:
-            output = 0
+        for i in result:
+            entry = [i["name"], i["score"]]
+            data.append(entry)
 
-        self.close_database(db)
-
-        return output
+        return list(tuple(d) for d in data)
 
     def insert_new_entry(self, name, reps):
         """
@@ -63,31 +49,16 @@ class Leaderboard:
         :param name: Name of the entry
         :param reps: Number of reps for the entry
         """
-        db = self.open_database()
-        cursor = db.cursor()
-        query = "INSERT INTO leaderboard VALUES (?, ?)"
-        cursor.execute(query, (name, reps))
-        db.commit()
-        self.close_database(db)
+        return
 
     def get_min_score(self):
         """
         Get the minimum score in the leaderboard.
         :return: Minimum score
         """
-        db = self.open_database()
-        cursor = db.cursor()
+        result = self.execute_query("SELECT+score+FROM+leaderboard+ORDER+BY+score+DESC+LIMIT+1+OFFSET+9")
 
-        result = cursor.execute("SELECT score FROM leaderboard ORDER BY score DESC LIMIT 1 OFFSET 9;")
-        result = result.fetchall()[0][0]
-        # if cursor.rowcount != 0 :
-        #     output = result.fetchone()[1]
-        # else:
-        #     output = 0
-
-        self.close_database(db)
-
-        return result
+        return result[0]["score"]
     
-# leaderboard = Leaderboard("Application\Assets\db\database.db")
-# print(type(leaderboard.get_min_score()))
+# leaderboard = Leaderboard("http://danick.triantis.nl:8080/leaderboard")
+# print(leaderboard.get_min_score())

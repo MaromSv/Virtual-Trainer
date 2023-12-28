@@ -36,12 +36,8 @@ class VirtualTrainerApp:
 
         #Size/Shape of tabs:
         self.style.configure("TNotebook.Tab", padding = (52, 20), font=('Helvetica', 15), tabmargins=0)
-       
-
-        
-        # self.leaderboard = Leaderboard("Assets/database.db")
     
-        self.leaderboard = Leaderboard("Application\Assets\db\database.db")
+        self.leaderboard = Leaderboard("http://danick.triantis.nl:8080/leaderboard")
 
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
