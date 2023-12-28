@@ -25,7 +25,7 @@ def get_password(email):
     url = "http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+password+FROM+%22users%22+WHERE+email%3D{}".format(email)
     x = requests.get(url)
     password_db = json.loads(x.text)[0]["password"]
-    print(password_db)
+    return password_db
 
 def get_leaderboard():
     url = "http://danick.triantis.nl:8080/leaderboard/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22leaderboard%22;"
@@ -86,15 +86,15 @@ def leaderboard():
     get_leaderboard()
     return render_template('leaderboard.html')
 
-@app.route('/login_form', methods=["get"])
+@app.route('/login_form', methods=['POST'])
 def login_form():
     email = request.form['loginemail']
     password = request.form['loginpw']
-    # user = User.query.filter_by(email=email).first()
+    print(email, password)
     if password == get_password(email):
         return render_template('home.html')
     else:
-        return render_template('login.html')
+        return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
