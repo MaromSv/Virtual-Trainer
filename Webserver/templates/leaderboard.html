@@ -20,7 +20,7 @@
 
 <body>
     <div class="app">
-        <div class="layout">
+        <div class = "layout">
             <!-- Page Container START -->
             <div class="page-container">
                 <!-- Header START -->
@@ -40,21 +40,32 @@
                             </div>
                         </nav>
                     </div>
+                    <div>
+                        <table class="table">
+                            <thead class="thead-light">
+                              <tr>
+                                <!-- Your Columns HERE -->
+                                <th class="header text-left" scope="col">Ranking</th>
+                                <th class="header text-left" scope="col">Name</th>
+                                <th class="header text-left" scope="col">Score</th>
+                            
+                              </tr>
+                            </thead>
+                            <tbody id="temp-table">
+                              {% for entry in results%}
+                              <tr>
+                                <td class="text-md-center">{{loop.index}}</td>
+                                <td class="text-left">{{entry['name']}}</td>
+                                <td class="text-left">{{entry['score']}}</td>
+                               
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
                 </header>
                 <!-- Header END -->
-
-        </div>
-    </div>
-    <div>
-        <table>
-            <thead>
-              <tr>
-                <th>Key</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-
-          </table>
+            </div>
     </div>
 </body>
 
