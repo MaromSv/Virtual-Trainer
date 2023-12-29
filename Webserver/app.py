@@ -28,10 +28,11 @@ def get_password(email):
     return password_db
 
 def get_leaderboard():
-    url = "http://danick.triantis.nl:8080/leaderboard/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22leaderboard%22;"
+    url = "http://danick.triantis.nl:8080/leaderboard/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22leaderboard%22+ORDER+BY+%22score%22+DESC;"
     x = requests.get(url)
     data = json.loads(x.text)
     print(data)
+    return data
 
 # get_leaderboard()
 # get_password("marios@gmail.com")
@@ -83,18 +84,20 @@ def buddy():
 
 @app.route('/leaderboard')
 def leaderboard():
-    get_leaderboard()
-    return render_template('leaderboard.html')
+    data = get_leaderboard()
+    return render_template('leaderboard.html', results = data)
 
 @app.route('/login_form', methods=['POST'])
 def login_form():
-    email = request.form['loginemail']
-    password = request.form['loginpw']
-    print(email, password)
-    if password == get_password(email):
-        return render_template('home.html')
-    else:
-        return render_template('index.html')
+    return redirect(url_for('home'))
+
+    # email = request.form['loginemail']
+    # password = request.form['loginpw']
+    # print(email, password)
+    # if password == get_password(email):
+    #     return render_template('home.html')
+    # else:
+    #     return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
