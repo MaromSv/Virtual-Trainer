@@ -7,15 +7,15 @@
     <title>Bootstrap Responsive Web Application Template</title>
 
     <!-- plugins css -->
-    <link rel="stylesheet" href="assets/vendors/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
-    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pace-theme-minimal.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfect-scrollbar.css') }}" />
 
     <!-- core css -->
-    <link href="assets/css/home.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet">
 
     <!-- icon-->
-    <link rel="icon" href="assets/VirtualTrainerLogo-removebg-preview.png">
+    <link rel="icon" href="{{ url_for('static', filename='VirtualTrainerLogo-removebg-preview.png') }}">
 </head>
 
 <body>
@@ -28,14 +28,14 @@
                     <div class="header-container">
                         <nav>
                             <div class="logo">
-                                <h1><img src="assets/VirtualTrainerLogo-removebg-preview.png" alt ="VT_Logo" width="10%" height="10%">Leaderboard</h1>
+                                <h1><img src="{{ url_for('static', filename='VirtualTrainerLogo.png') }}" alt ="VT_Logo" width="10%" height="10%">Leaderboard</h1>
                             </div>
                             <div class="menu">
                                 <ul>
-                                    <li><a href="home.html">Home</a></li>
-                                    <li><a href="map.html">Map</a></li>
-                                    <li><a href="buddy.html">Find a Buddy</a></li>
-                                    <li><a href="leaderboard.html">Leaderboard</a></li>
+                                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                                    <li><a href="{{ url_for('map') }}">Map</a></li>
+                                    <li><a href="{{ url_for('buddy') }}">Find a Buddy</a></li>
+                                    <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -53,15 +53,7 @@
                 <th>Value</th>
               </tr>
             </thead>
-            <tbody>
-            {% for key, value in result.items() %}
-             <tr>
-                 <td> {{ key }} </td>
-                 <td> {{ value }} </td>
-             </tr>
-            {% endfor %}
-            <p>Here is my variable: {{ ooga }}</p>
-            </tbody>
+
           </table>
     </div>
 </body>

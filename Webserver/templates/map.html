@@ -7,15 +7,14 @@
     <title>Bootstrap Responsive Web Application Template</title>
 
     <!-- plugins css -->
-    <link rel="stylesheet" href="assets/vendors/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
-    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pace-theme-minimal.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfect-scrollbar.css') }}" />
     <!-- core css -->
-    <link href="assets/css/home.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet">
     
     <!-- icon-->
-    <link rel="icon" href="assets/VirtualTrainerLogo-removebg-preview.png">
+    <link rel="icon" href="{{ url_for('static', filename='VirtualTrainerLogo-removebg-preview.png') }}">
 </head>
 
 <body>
@@ -28,7 +27,7 @@
                     <div class="header-container">
                         <nav>
                             <div class="logo">
-                                <h1><img src="assets/VirtualTrainerLogo-removebg-preview.png" alt ="VT_Logo" width="10%" height="10%">Map</h1>
+                                <h1><img src="{{ url_for('static', filename='VirtualTrainerLogo.png') }}" alt ="VT_Logo" width="10%" height="10%">Map</h1>
                             </div>
                             <div class="menu">
                                 <ul>
