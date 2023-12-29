@@ -130,18 +130,18 @@
                                         <div class="mrg-top-40">
                                             <div class="row">
                                                 <div class="col-md-8 ml-auto mr-auto">
-                                                    <form>
+                                                    <form action="{{url_for('personal_form')}}" method="POST">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>First Name</label>
-                                                                    <input type="text" id="first_name_enter" placeholder="first name" class="form-control">
+                                                                    <input type="text" name="first_name_enter" placeholder="first name" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Last Name</label>
-                                                                    <input type="text" id="last_name_enter" placeholder="last name" class="form-control">
+                                                                    <input type="text" name="last_name_enter" placeholder="last name" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -149,13 +149,13 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Age</label>
-                                                                    <input type="text" id="age_enter" placeholder="age" class="form-control">
+                                                                    <input type="text" name="age_enter" placeholder="age" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Location:</label><br>
-                                                                    <input class="location" type="radio" id="loc1" name="location" value="Campus">
+                                                                    <input class="location" type="radio" id="loc1" name="location_enter" value="Campus">
                                                                     <label for="loc1"> Campus</label><br>
                                                                 </div>
                                                             </div>
@@ -164,22 +164,22 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Gender:</label><br>
-                                                                    <input class="gender" type="radio" id="gender1" name="gender" value="Male">
+                                                                    <input class="gender" type="radio" id="gender1" name="gender_enter" value="Male">
                                                                     <label for="gender1"> Male</label><br>
-                                                                    <input class="gender" type="radio" id="gender2" name="gender" value="Female">
+                                                                    <input class="gender" type="radio" id="gender2" name="gender_enter" value="Female">
                                                                     <label for="gender2"> Female</label><br>
-                                                                    <input class="gender" type="radio" id="gender3" name="gender" value="Other">
+                                                                    <input class="gender" type="radio" id="gender3" name="gender_enter" value="Other">
                                                                     <label for="gender3"> Other</label><br>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Experience:</label><br>
-                                                                    <input class="experience" type="radio" id="exp1" name="experience" value="Beginner">
+                                                                    <input class="experience" type="radio" id="exp1" name="experience_enter" value="Beginner">
                                                                     <label for="exp1"> Beginner</label><br>
-                                                                    <input class="experience" type="radio" id="exp2" name="experience" value="Intermediate">
+                                                                    <input class="experience" type="radio" id="exp2" name="experience_enter" value="Intermediate">
                                                                     <label for="exp2"> Intermediate</label><br>
-                                                                    <input class="experience" type="radio" id="exp3" name="experience" value="Advanced">
+                                                                    <input class="experience" type="radio" id="exp3" name="experience_enter" value="Advanced">
                                                                     <label for="exp3"> Advanced</label><br>                                                        
                                                                 </div>
                                                             </div>
@@ -187,7 +187,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6 col-xs-6">
                                                                 <div class="text-right mrg-top-5">
-                                                                    <button onclick="updateInfo()" type="button" class="btn btn-primary" id="update_personal_info">Update Personal Info</button>
+                                                                    <button onclick="updateInfo()" type="submit" class="btn btn-primary" id="update_personal_info">Update Personal Info</button>
    
                                                                 </div>
                                                             </div>
@@ -207,12 +207,12 @@
                                         <div class="mrg-top-40">
                                             <div class="row">
                                                 <div class="col-md-8 ml-auto mr-auto">
-                                                    <form>
+                                                    <form action="{{ url_for('index') }}">
                                                         <div class="row">
                                                             <div class="col-md-6 col-xs-6">
                                                                 <div class="text-right mrg-top-5">
                                                                     <form>
-                                                                        <button type="submit" class="btn btn-primary" formaction="index.html">Log out</button>
+                                                                        <button type="submit" class="btn btn-primary" >Log out</button>
                                                                       </form>
                                                                 </div>
                                                             </div>

@@ -18,6 +18,7 @@ import requests
 
 # url = "http://danick.triantis.nl:8080/leaderboard/query/?sql=SELECT+*+FROM+users;"
 
+current_userid = 0
 
 def get_password(email):
     email.replace("@", "%40")
@@ -40,13 +41,33 @@ def get_max_userid():
 def insert_user(userid,email,password):
     email.replace("@", "%40")
     email = "%22" + email + "%22"
-    url = "http://danick.triantis.nl:8080/users/query/?ordering=&export_ordering=&sql=INSERT+INTO+users+%28email%2Cpassword%2Cuserid%29%0D%0AVALUES+%28%22{}%22%2C+%22{}%22%2C{}%29".format(email,password,userid)
-    x = requests.get(url)
+    url = "http://danick.triantis.nl:8080/users/query/?ordering=&export_ordering=&sql=INSERT+INTO+users%28email%2Cpassword%2C%22userid%22%29%0D%0AVALUES+%28%22{}%22%2C%22{}%22%2C{}%29".format(userid,email,password)
+    requests.get(url)
+
+def update_personal_info(userid,first_name,last_name,age,gender,experience,location):
+    url="http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=UPDATE+%22Personal_Form%22%0D%0ASET+first_name%3D%22{}%22%2C+last_name%3D%22{}%22%2C+age%3D{}%2C+gender%3D%22{}%22%2C+experience%3D%22{}%22%2C+location%3D%22{}%22%0D%0AWHERE+userid%3D{}+".format(first_name,last_name,age,gender,experience,location,userid)
+    requests.get(url)
+
+# def sort_users():
+#     url = "http://danick.triantis.nl:8080/users/query/?ordering=&export_ordering=&sql=SELECT+*+FROM+users%0D%0AORDER+BY+userid%3B"
+#     requests.get(url)
+
+# def sort_Buddy_Form():
+#     url = "http://danick.triantis.nl:8080/Buddy_Form/query/?ordering=&export_ordering=&sql=SELECT+*+FROM+Buddy_Form%0D%0AORDER+BY+userid%3B"
+#     requests.get(url)
+
+# def sort_personal_from():
+#     url = "http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=SELECT+*+FROM+Personal_Form%0D%0AORDER+BY+userid%3B"
+#     requests.get(url)
+
+def delete_personal_form(userid):
+    url="http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=DELETE+FROM+%22Personal_Form%22+WHERE+userid%3D%3D{}".format(userid)    
+    requests.get(url)
     # print(json.loads(x.text))
 
 def insert_personal_form(userid,first_name,last_name,age,gender,experience,location):
     url="http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=INSERT+INTO+Personal_Form+%28userid%2Cfirst_name%2Clast_name%2Cage%2Cgender%2Cexperience%2Clocation%29%0D%0AVALUES+%28{}%2C%22{}%22%2C%22{}%22%2C{}%2C%22{}%22%2C%22{}%22%2C%22{}%22%29".format(userid,first_name,last_name,age,gender,experience,location)
-    x = requests.get(url)
+    requests.get(url)
     # print(json.loads(x.text))
 
 def createaccount(email,password,first_name,last_name,age,gender,experience,location):
@@ -61,6 +82,17 @@ def get_leaderboard():
     data = json.loads(x.text)
     print(data)
     return data
+
+def get_userid(email):
+    global current_userid
+    email.replace("@", "%40")
+    email = "%22" + email + "%22"
+    url="http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+userid+FROM+%22users%22+WHERE+email+%3D%3D+%22marios%40gmail.com%22"    
+    x = requests.get(url)
+    if x.text == "[]":
+        return 0
+    data = json.loads(x.text)[0]["userid"]
+    current_userid = data
 
 # get_leaderboard()
 # get_password("marios@gmail.com")
@@ -92,6 +124,7 @@ app = Flask(__name__,template_folder='templates',static_folder='static')
 
 @app.route('/')
 def index():
+    # userid = "" # cause of logout
     return render_template('index.html')
 
 @app.route('/signup')
@@ -100,6 +133,7 @@ def signup():
 
 @app.route('/home')
 def home():
+    print(current_userid)
     return render_template('home.html')
 
 @app.route('/map')
@@ -121,6 +155,7 @@ def login_form():
     password = request.form['loginpw']
     print(email, password)
     if password == get_password(email):
+        get_userid(email)
         return redirect(url_for('home'))
     else:
         return redirect(url_for('index'))
@@ -136,7 +171,7 @@ def signup_form():
     gender = request.form.getlist('signupgender')
     experience = request.form.getlist('signupexperience')
     location = request.form.getlist('signuplocation')
-    print(email,password,password_confirm,first_name,last_name,age,gender,experience,location)
+    # print(email,password,password_confirm,first_name,last_name,age,gender,experience,location)
     if email=="" or password == "" or password_confirm == "" or first_name == "" or last_name == "" or age == "" or gender == [] or experience == [] or location == []:
         return redirect(url_for('signup'))
     else:
@@ -148,6 +183,23 @@ def signup_form():
         return redirect(url_for('index'))
     else:
         return redirect(url_for('signup'))
-
+    
+@app.route('/personal_form', methods=['POST'])
+def personal_form():
+    first_name = request.form['first_name_enter']
+    last_name = request.form['last_name_enter']
+    age = request.form['age_enter']
+    gender = request.form.getlist('gender_enter')
+    experience = request.form.getlist('experience_enter')
+    location = request.form.getlist('location_enter')
+    if first_name == "" or last_name == "" or age == "" or gender == [] or experience == [] or location == []:
+        return redirect(url_for('signup'))
+    else:
+        gender = gender[0]
+        experience = experience[0]
+        location = location[0]
+        update_personal_info(current_userid,first_name,last_name,age,gender,experience,location)
+        return redirect(url_for('home'))
+    
 if __name__ == '__main__':
     app.run(debug=True)
