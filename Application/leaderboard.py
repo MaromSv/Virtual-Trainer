@@ -18,15 +18,38 @@ class Leaderboard:
         query = self.url + "/query/?ordering=&export_json=&sql=" + query
 
         req = requests.get(query)
+        if not req.ok:
+            print("Could not execute query!")
+            return 0
+
         data = json.loads(req.text)
 
         return data
+    
+    def execute_update(self, name, reps):
+        query = self.url + "/insert/"
+
+        form = {
+            "chk_name": "on",
+            "name": name,
+            "chk_score": "on",
+            "score": reps
+        }
+
+        req = requests.post(query, form)
+        if not req.ok:
+            print("Could not execute update!")
+
+        return
 
     def update_leaderboard(self, data):
         """
         Update the leaderboard with new data.
         :param data: List of tuples (name, reps)
         """
+        for entry in data:
+            self.execute_update(entry[0], entry[1])
+
         return
 
     def get_leaderboard_data(self):
@@ -49,6 +72,18 @@ class Leaderboard:
         :param name: Name of the entry
         :param reps: Number of reps for the entry
         """
+        query = self.url + "/insert/"
+        form = {
+            "chk_name": "on",
+            "name": name,
+            "chk_score": "on",
+            "score": reps
+        }
+
+        req = requests.post(query, form)
+        if not req.ok:
+            print("Could not insert entry in leaderboard!")
+
         return
 
     def get_min_score(self):
@@ -61,4 +96,7 @@ class Leaderboard:
         return result[0]["score"]
     
 # leaderboard = Leaderboard("http://danick.triantis.nl:8080/leaderboard")
+# print(leaderboard.get_min_score())
+
+# leaderboard.insert_new_entry("Senno", 71)
 # print(leaderboard.get_min_score())
