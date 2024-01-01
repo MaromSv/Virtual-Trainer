@@ -20,6 +20,8 @@ import requests
 
 current_userid = 0
 
+# For Login page
+
 def get_password(email):
     email.replace("@", "%40")
     email = "%22" + email + "%22"
@@ -30,6 +32,25 @@ def get_password(email):
     password_db = json.loads(x.text)[0]["password"]
     return password_db
 
+def get_userid(email):
+    global current_userid
+    email.replace("@", "%40")
+    email = "%22" + email + "%22"
+    url="http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+userid+FROM+%22users%22+WHERE+email+%3D%3D+%22marios%40gmail.com%22"    
+    x = requests.get(url)
+    if x.text == "[]":
+        return 0
+    data = json.loads(x.text)[0]["userid"]
+    current_userid = data
+
+
+# For signup page
+
+def createaccount(email,password,first_name,last_name,age,gender,experience,location):
+    userid = get_max_userid() + 1
+    insert_user(userid,email,password)
+    insert_personal_form(userid,first_name,last_name,age,gender,experience,location)
+
 def get_max_userid():
     url = "http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+userid%0D%0AFROM+users%0D%0AWHERE+userid+IN+%28%0D%0A++++SELECT+MAX%28userid%29%0D%0A++++FROM+users%0D%0A%29"
     x = requests.get(url)
@@ -38,15 +59,58 @@ def get_max_userid():
     data = json.loads(x.text)[0]["userid"]
     return data
 
-def insert_user(userid,email,password):
-    email.replace("@", "%40")
-    email = "%22" + email + "%22"
-    url = "http://danick.triantis.nl:8080/users/query/?ordering=&export_ordering=&sql=INSERT+INTO+users%28email%2Cpassword%2C%22userid%22%29%0D%0AVALUES+%28%22{}%22%2C%22{}%22%2C{}%29".format(userid,email,password)
+def insert_personal_form(userid,first_name,last_name,age,gender,experience,location):
+    url="http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=INSERT+INTO+Personal_Form+%28userid%2Cfirst_name%2Clast_name%2Cage%2Cgender%2Cexperience%2Clocation%29%0D%0AVALUES+%28{}%2C%22{}%22%2C%22{}%22%2C{}%2C%22{}%22%2C%22{}%22%2C%22{}%22%29".format(userid,first_name,last_name,age,gender,experience,location)
     requests.get(url)
 
+def insert_user(userid,email,password):
+    email.replace("@", "%40")
+    print(email)
+    url = "http://danick.triantis.nl:8080/users/query/?ordering=&export_ordering=&sql=INSERT+INTO+users+%28userid%2Cemail%2Cpassword%29%0D%0AVALUES+%28{}%2C%22{}%22%2C%22{}%22%29".format(userid,email,password)
+    requests.get(url)
+
+
+# For home page
+    
 def update_personal_info(userid,first_name,last_name,age,gender,experience,location):
     url="http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=UPDATE+%22Personal_Form%22%0D%0ASET+first_name%3D%22{}%22%2C+last_name%3D%22{}%22%2C+age%3D{}%2C+gender%3D%22{}%22%2C+experience%3D%22{}%22%2C+location%3D%22{}%22%0D%0AWHERE+userid%3D{}+".format(first_name,last_name,age,gender,experience,location,userid)
     requests.get(url)
+
+
+# For leaderboard page
+    
+def get_leaderboard():
+    url = "http://danick.triantis.nl:8080/leaderboard/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22leaderboard%22+ORDER+BY+%22score%22+DESC;"
+    x = requests.get(url)
+    data = json.loads(x.text)
+    print(data)
+    return data
+
+# For Buddy page
+def insert_buddy_form(userid,days_available,gender_preference,age_preference,experience_preference,location_preference):
+    days_available.replace(",", "%2C")
+    experience_preference.replace(",", "%2C")
+    if select_current_buddy_form(userid) == []:
+        url="http://danick.triantis.nl:8080/Buddy_Form/query/?ordering=&export_ordering=&sql=INSERT+INTO+Buddy_Form+%28userid%2Cdays_available%2Cgender_preference%2Cage_preference%2Cexperience_preference%2Clocation_preference%29%0D%0AVALUES+%28{}%2C%22{}%22%2C%22{}%22%2C%22{}%22%2C%22{}%22%2C%22{}%22%29".format(userid,days_available,gender_preference,age_preference,experience_preference,location_preference)
+
+    else:
+        url="http://danick.triantis.nl:8080/Buddy_Form/query/?ordering=&export_ordering=&sql=UPDATE+Buddy_Form%0D%0ASET+days_available+%3D+%22{}%22%2C+gender_preference+%3D+%22{}%22%2C+age_preference+%3D+%22{}%22%2C+experience_preference+%3D+%22{}%22%2C+location_preference+%3D+%22{}%22%0D%0AWHERE+userid%3D%3D{}".format(days_available,gender_preference,age_preference,experience_preference,location_preference,userid)
+    requests.get(url)
+
+
+def select_current_buddy_form(userid):
+    url = "http://danick.triantis.nl:8080/Buddy_Form/query/?ordering=&export_json=&sql=SELECT+userid+FROM+%22Buddy_Form%22%0D%0AWHERE+userid%3D%3D{}".format(userid)
+    x = requests.get(url)
+    data = json.loads(x.text)
+    if data == []:
+        return []
+    else:
+        return data[0]["userid"]
+    
+def find_buddy(userid):
+    print("TODO")
+    
+# Usefull(less) stuff
 
 # def sort_users():
 #     url = "http://danick.triantis.nl:8080/users/query/?ordering=&export_ordering=&sql=SELECT+*+FROM+users%0D%0AORDER+BY+userid%3B"
@@ -60,71 +124,15 @@ def update_personal_info(userid,first_name,last_name,age,gender,experience,locat
 #     url = "http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=SELECT+*+FROM+Personal_Form%0D%0AORDER+BY+userid%3B"
 #     requests.get(url)
 
-def delete_personal_form(userid):
-    url="http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=DELETE+FROM+%22Personal_Form%22+WHERE+userid%3D%3D{}".format(userid)    
-    requests.get(url)
-    # print(json.loads(x.text))
+# def delete_personal_form(userid):
+#     url="http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=DELETE+FROM+%22Personal_Form%22+WHERE+userid%3D%3D{}".format(userid)    
+#     requests.get(url)
 
-def insert_personal_form(userid,first_name,last_name,age,gender,experience,location):
-    url="http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_ordering=&sql=INSERT+INTO+Personal_Form+%28userid%2Cfirst_name%2Clast_name%2Cage%2Cgender%2Cexperience%2Clocation%29%0D%0AVALUES+%28{}%2C%22{}%22%2C%22{}%22%2C{}%2C%22{}%22%2C%22{}%22%2C%22{}%22%29".format(userid,first_name,last_name,age,gender,experience,location)
-    requests.get(url)
-    # print(json.loads(x.text))
-
-def createaccount(email,password,first_name,last_name,age,gender,experience,location):
-    userid = get_max_userid() + 1
-    insert_user(userid,email,password)
-    insert_personal_form(userid,first_name,last_name,age,gender,experience,location)
-
-
-def get_leaderboard():
-    url = "http://danick.triantis.nl:8080/leaderboard/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22leaderboard%22+ORDER+BY+%22score%22+DESC;"
-    x = requests.get(url)
-    data = json.loads(x.text)
-    print(data)
-    return data
-
-def get_userid(email):
-    global current_userid
-    email.replace("@", "%40")
-    email = "%22" + email + "%22"
-    url="http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+userid+FROM+%22users%22+WHERE+email+%3D%3D+%22marios%40gmail.com%22"    
-    x = requests.get(url)
-    if x.text == "[]":
-        return 0
-    data = json.loads(x.text)[0]["userid"]
-    current_userid = data
-
-# get_leaderboard()
-# get_password("marios@gmail.com")
 
 app = Flask(__name__,template_folder='templates',static_folder='static')
 
-# class User(db.Model):
-#     userid = db.Column(db.Integer, primary_key=True, nullable=True)
-#     email = db.Column(db.text(120), unique=True, nullable=True)
-#     password = db.Column(db.text(255), nullable=True)
-
-# class Personal_Form(db.Model):
-#     userid = db.Column(db.Integer, primary_key=True, nullable=True)
-#     first_name = db.Column(db.text(255), nullable=True)
-#     last_name = db.Column(db.text(255), nullable=True)
-#     age = db.Column(db.Integer, nullable=True)
-#     gender = db.Column(db.text(255), nullable=True)
-#     experience = db.Column(db.text(255), nullable=True)
-#     location = db.Column(db.text(255), nullable=True)
-
-# class Buddy_Form(db.Model):
-#     userid = db.Column(db.Integer, primary_key=True, nullable=True)
-#     days_preference = db.Column(db.text(255), nullable=True)
-#     gender_preference = db.Column(db.text(255), nullable=True)
-#     experience_preference = db.Column(db.text(255), nullable=True)
-#     location_preference = db.Column(db.text(255), nullable=True)
-
-
-
 @app.route('/')
 def index():
-    # userid = "" # cause of logout
     return render_template('index.html')
 
 @app.route('/signup')
@@ -171,7 +179,6 @@ def signup_form():
     gender = request.form.getlist('signupgender')
     experience = request.form.getlist('signupexperience')
     location = request.form.getlist('signuplocation')
-    # print(email,password,password_confirm,first_name,last_name,age,gender,experience,location)
     if email=="" or password == "" or password_confirm == "" or first_name == "" or last_name == "" or age == "" or gender == [] or experience == [] or location == []:
         return redirect(url_for('signup'))
     else:
@@ -200,6 +207,25 @@ def personal_form():
         location = location[0]
         update_personal_info(current_userid,first_name,last_name,age,gender,experience,location)
         return redirect(url_for('home'))
+    
+@app.route('/buddy_form', methods=['POST'])
+def buddy_form():
+    days_available= request.form.getlist('days_available_enter')
+    gender_preference = request.form.getlist('gender_preference_enter')
+    experience_preference = request.form.getlist('experience_preference_enter')
+    location_preference = request.form.getlist('location_preference_enter')
+    age_preference = request.form.getlist('age_preference_enter')
+    if days_available == [] or gender_preference == [] or experience_preference == [] or location_preference == [] or age_preference == []:
+        return redirect(url_for('buddy'))
+    else:
+        gender_preference = gender_preference[0]
+        age_preference = age_preference[0]
+        location_preference = location_preference[0]
+        experience_preference = ','.join(experience_preference)
+        days_available = ','.join(days_available)
+        insert_buddy_form(current_userid,days_available,gender_preference,age_preference,experience_preference,location_preference)
+        return redirect(url_for('buddy'))
+
     
 if __name__ == '__main__':
     app.run(debug=True)

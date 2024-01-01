@@ -147,33 +147,33 @@
                                         <div class="mrg-top-40">
                                             <div class="row">
                                                 <div class="col-md-8 ml-auto mr-auto">
-                                                    <form>
+                                                    <form action="{{url_for('buddy_form')}}" method="POST">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Days available:</label><br>
-                                                                    <input class="days_available" type="checkbox" id="day1" name="day1" value="Monday">
+                                                                    <input class="days_available" type="checkbox" id="day1" name="days_available_enter" value="Monday">
                                                                     <label for="day1"> Monday</label><br>
-                                                                    <input class="days_available" type="checkbox" id="day2" name="day2" value="Tuesday">
+                                                                    <input class="days_available" type="checkbox" id="day2" name="days_available_enter" value="Tuesday">
                                                                     <label for="day2"> Tuesday</label><br>
-                                                                    <input class="days_available" type="checkbox" id="day3" name="day3" value="Wednesday">
+                                                                    <input class="days_available" type="checkbox" id="day3" name="days_available_enter" value="Wednesday">
                                                                     <label for="day3"> Wednesday</label><br>
-                                                                    <input class="days_available" type="checkbox" id="day4" name="day4" value="Thursday">
+                                                                    <input class="days_available" type="checkbox" id="day4" name="days_available_enter" value="Thursday">
                                                                     <label for="day4"> Thursday</label><br>
-                                                                    <input class="days_available" type="checkbox" id="day5" name="day5" value="Friday">
+                                                                    <input class="days_available" type="checkbox" id="day5" name="days_available_enter" value="Friday">
                                                                     <label for="day5"> Friday</label><br>
-                                                                    <input class="days_available" type="checkbox" id="day6" name="day6" value="Saturday">
+                                                                    <input class="days_available" type="checkbox" id="day6" name="days_available_enter" value="Saturday">
                                                                     <label for="day6"> Saturday</label><br>
-                                                                    <input class="days_available" type="checkbox" id="day7" name="day7" value="Sunday">
+                                                                    <input class="days_available" type="checkbox" id="day7" name="days_available_enter" value="Sunday">
                                                                     <label for="day7"> Sunday</label><br>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Gender Preference:</label><br>
-                                                                    <input class="gender_preference" type="checkbox" id="gender_pref1" name="gender_pref1" value="Same">
+                                                                    <input class="gender_preference" type="radio" id="gender_pref1" name="gender_preference_enter" value="Same">
                                                                     <label for="gender_pref1"> Same Gender</label><br>
-                                                                    <input class="gender_preference" type="checkbox" id="gender_pref2" name="gender_pref2" value="Any">
+                                                                    <input class="gender_preference" type="radio" id="gender_pref2" name="gender_preference_enter" value="Any">
                                                                     <label for="gender_pref2"> Any</label><br>
                                                                 </div>
                                                             </div>
@@ -182,18 +182,18 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Experience Preference:</label><br>
-                                                                    <input class="experience_preference" type="checkbox" id="exp_pref1" name="exp_pref1" value="Beginner">
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref1" name="experience_preference_enter" value="Beginner">
                                                                     <label for="exp_pref1"> Beginner</label><br>
-                                                                    <input class="experience_preference" type="checkbox" id="exp_pref2" name="exp_pref2" value="Intermediate">
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref2" name="experience_preference_enter" value="Intermediate">
                                                                     <label for="exp_pref2"> Intermediate</label><br>
-                                                                    <input class="experience_preference" type="checkbox" id="exp_pref3" name="exp_pref3" value="Advanced">
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref3" name="experience_preference_enter" value="Advanced">
                                                                     <label for="exp_pref3"> Advanced</label><br>                                                        
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Location Preference:</label><br>
-                                                                    <input class="location_preference" type="checkbox" id="loc_pref1" name="loc_pref1" value="Campus">
+                                                                    <input class="location_preference" type="radio" id="loc_pref1" name="location_preference_enter" value="Campus">
                                                                     <label for="loc_pref1"> Campus</label><br>
                                                                 </div>
                                                             </div>
@@ -202,9 +202,9 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Age Group Preference:</label><br>
-                                                                    <input class="age_preference" type="checkbox" id="age_pref1" name="age_pref1" value="Same age group">
+                                                                    <input class="age_preference" type="radio" id="age_pref1" name="age_preference_enter" value="Similar">
                                                                     <label for="age_pref1"> Same age group</label><br>
-                                                                    <input class="age_preference" type="checkbox" id="age_pref2" name="age_pref2" value="Any age group">
+                                                                    <input class="age_preference" type="radio" id="age_pref2" name="age_preference_enter" value="Any">
                                                                     <label for="age_pref1"> Any age group</label><br>
                                                                 </div>
                                                             </div>
@@ -212,7 +212,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6 col-xs-6">
                                                                 <div class="text-right mrg-top-5">
-                                                                    <button onclick="Find_Buddy()" type="button" class="btn btn-primary">Submit Form</button>
+                                                                    <button onclick="Find_Buddy()" type="submit" class="btn btn-primary">Submit Form</button>
                                                                 </div>
                                                             </div>
                                                         </div>
