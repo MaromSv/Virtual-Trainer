@@ -35,8 +35,7 @@ def get_password(email):
 def get_userid(email):
     global current_userid
     email.replace("@", "%40")
-    email = "%22" + email + "%22"
-    url="http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+userid+FROM+%22users%22+WHERE+email+%3D%3D+%22marios%40gmail.com%22"    
+    url="http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+userid+FROM+%22users%22+WHERE+email+%3D%3D+%22{}%22".format(email)
     x = requests.get(url)
     if x.text == "[]":
         return 0
@@ -226,6 +225,6 @@ def buddy_form():
         insert_buddy_form(current_userid,days_available,gender_preference,age_preference,experience_preference,location_preference)
         return redirect(url_for('buddy'))
 
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
