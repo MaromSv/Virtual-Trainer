@@ -1828,3 +1828,8 @@ a.card:focus {
     margin: auto;
     width: 90px;
 }
+
+/* Removing awkward black box on map */
+.i4ewOd-pzNkMb-haAclf {
+	display: none
+}
