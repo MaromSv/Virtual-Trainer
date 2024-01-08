@@ -140,8 +140,19 @@ def signup():
 
 @app.route('/home')
 def home():
+    url = 'http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_json=&sql=SELECT+first_name%2C+last_name%2C+age%2C+gender%2C+experience%2C+location+FROM+%22Personal_Form%22+where+userid+%3D+{}'.format(current_userid)
+    x = requests.get(url)
+    data = json.loads(x.text)
+    first_name = data[0]["first_name"]
+    last_name = data[0]["last_name"]
+    age = data[0]["age"]
+    location = data[0]["location"]
+    gender = data[0]["gender"]
+    experience = data[0]["experience"]
+
+
     print(current_userid)
-    return render_template('home.html')
+    return render_template('home.html', first_name = first_name, last_name = last_name, age = age, gender = gender, experience = experience, location = location)
 
 @app.route('/map')
 def map():
