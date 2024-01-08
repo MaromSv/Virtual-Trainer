@@ -325,7 +325,28 @@ def map():
 
 @app.route('/buddy')
 def buddy():
-    return render_template('buddy.html')
+    url = 'http://danick.triantis.nl:8080/Current_Buddy/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22Current_Buddy%22+where+userid+%3D+{}+'.format(current_userid)
+    x = requests.get(url)
+    data = json.loads(x.text)
+    buddy_id = data[0]['buddy_userid']
+    common_days = data[0]['common_days']
+    buddy_url = 'http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+email+FROM+%22users%22+where+userid+%3D+{}'.format(buddy_id)
+    x2 = requests.get(buddy_url)
+    buddy_info_json = json.loads(x2.text)
+    buddy_email = buddy_info_json[0]['email']
+    print('buddy email: ' + buddy_email)
+    print('buddy common days' + common_days)
+    buddy_url_2 = 'http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22Personal_Form%22+where+userid+%3D+{}'.format(buddy_id)
+    x3 = requests.get(buddy_url_2)
+    buddy_info_json_2 = json.loads(x3.text)
+    first_name = buddy_info_json_2[0]["first_name"]
+    last_name = buddy_info_json_2[0]["last_name"]
+    age = buddy_info_json_2[0]["age"]
+    location = buddy_info_json_2[0]["location"]
+    gender = buddy_info_json_2[0]["gender"]
+    experience = buddy_info_json_2[0]["experience"]
+
+    return render_template('buddy.html', email = buddy_email, first_name = first_name, last_name = last_name, age = age, gender = gender, location = location, experience = experience, common_days = common_days)
 
 @app.route('/leaderboard')
 def leaderboard():
