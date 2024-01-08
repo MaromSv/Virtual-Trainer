@@ -66,14 +66,14 @@ class VirtualTrainerApp:
         label.pack(pady=20)
 
         # Explanations with white text color
-        explanation_label1 = ttk.Label(home_frame, text="The Virtual Trainer is designed to help motivate and guide your fitness journey.", font=("Helvetica", 15, "bold"), anchor="center", justify="center", foreground="white")
-        explanation_label1.pack(pady=20)
+        explanation_label1 = ttk.Label(home_frame, text="The Virtual Trainer is designed to help motivate and guide your fitness journey.", font=("Helvetica", 13, "bold"), anchor="center", justify="center", foreground="white")
+        explanation_label1.pack(pady=30)
 
-        explanation_label2 = ttk.Label(home_frame, text="Navigate to the workout page for a killer workout! The leaderboard is where you can compete with others!", font=("Helvetica", 15, "bold"), anchor="center", justify="center", foreground="white")
-        explanation_label2.pack(pady=10)
+        explanation_label2 = ttk.Label(home_frame, text="Navigate to the workout page for a killer workout! The leaderboard is where you can compete with others!", font=("Helvetica", 13, "bold"), anchor="center", justify="center", foreground="white")
+        explanation_label2.pack(pady=30)
 
-        explanation_label3 = ttk.Label(home_frame, text="Need some extra motivation? Scan the QR code below to register and find a buddy!", font=("Helvetica", 15, "bold"), anchor="center", justify="center", foreground="white")
-        explanation_label3.pack(pady=10)
+        explanation_label3 = ttk.Label(home_frame, text="Need some extra motivation? Scan the QR code below to register and find a buddy!", font=("Helvetica", 13, "bold"), anchor="center", justify="center", foreground="white")
+        explanation_label3.pack(pady=30)
 
      
 
