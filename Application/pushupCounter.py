@@ -1,8 +1,7 @@
+import defines
 import cv2
 import mediapipe as mp
 import numpy as np
-import math
-# import pyttsx3
 import pygame
 import time
 
@@ -101,10 +100,10 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
     return stage, counter
 
 def pushUpCounter():
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    cap = cv2.VideoCapture(defines.CAPTURE_CAMERA_ID, cv2.CAP_DSHOW)
 
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, defines.CAPTURE_FRAME_WIDTH)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, defines.CAPTURE_FRAME_HEIGHT)
 
     # Pushup counter variables
     counter = 0 

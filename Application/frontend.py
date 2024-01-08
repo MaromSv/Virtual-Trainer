@@ -1,13 +1,12 @@
+import defines
 import tkinter as tk
 from tkinter import ttk
-import cv2
 from ttkthemes import ThemedStyle
 from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
 from tkinter import simpledialog as sd
 import videoPlayer
 from tkinter import messagebox
-import subprocess
 
 
 class VirtualTrainerApp:
@@ -37,7 +36,7 @@ class VirtualTrainerApp:
         #Size/Shape of tabs:
         self.style.configure("TNotebook.Tab", padding = (52, 20), font=('Helvetica', 15), tabmargins=0)
     
-        self.leaderboard = Leaderboard("http://danick.triantis.nl:8080/leaderboard")
+        self.leaderboard = Leaderboard(defines.LEADERBOARD_URL)
 
         self.pushup_counter_frame = None  # Initialize the push-up counter frame reference
         self.create_widgets()
@@ -169,11 +168,13 @@ class VirtualTrainerApp:
     def start_pushup_counter(self):
         reps = pushUpCounter()
         # reps = 9
+        print("Performed Reps: " + str(reps))
         
         minLeaderBoard = self.leaderboard.get_min_score()
+        print("Minimum Leaderboard Score: " + str(minLeaderBoard))
 
         lengthLeaderboard = len(self.leaderboard.get_leaderboard_data())
-        print(minLeaderBoard)
+        print("Length Leaderboard: " + str(lengthLeaderboard))
         # try:
 
         if reps > minLeaderBoard or lengthLeaderboard < 10:
