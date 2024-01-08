@@ -7,6 +7,7 @@ from pushupCounter import pushUpCounter
 from tkinter import simpledialog as sd
 import videoPlayer
 from tkinter import messagebox
+import subprocess
 
 
 class VirtualTrainerApp:
@@ -138,7 +139,9 @@ class VirtualTrainerApp:
     def get_difficulty(self):
         resultValid = False
         while not resultValid:
+            process = subprocess.Popen("C:\\PROGRA~1\\COMMON~1\\MICROS~1\\ink\\tabtip.exe", shell=True)
             result = sd.askinteger("Difficulty", "Enter the desired difficulty (1-3): ")
+            process.kill()
 
             validInputs = [None, 1, 2, 3]
 
