@@ -1,6 +1,6 @@
 import defines
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, PhotoImage
 from ttkthemes import ThemedStyle
 from leaderboard import Leaderboard
 from pushupCounter import pushUpCounter
@@ -56,15 +56,35 @@ class VirtualTrainerApp:
         self.notebook.pack(expand=True, fill="both")
 
     def create_home_page(self):
+        # Create the home frame
         home_frame = ttk.Frame(self.notebook)
         self.notebook.add(home_frame, text="Home")
 
-    
-        #TODO: add explanations or something to the page
-        
         # Home Page Widgets
         label = ttk.Label(home_frame, text="Welcome to Virtual Trainer", font=("Helvetica", 30, "bold"))
         label.pack(pady=20)
+
+        # Explanations with white text color
+        explanation_label1 = ttk.Label(home_frame, text="The Virtual Trainer is designed to help motivate and guide your fitness journey.", font=("Helvetica", 15, "bold"), anchor="center", justify="center", foreground="white")
+        explanation_label1.pack(pady=20)
+
+        explanation_label2 = ttk.Label(home_frame, text="Navigate to the workout page for a killer workout! The leaderboard is where you can compete with others!", font=("Helvetica", 15, "bold"), anchor="center", justify="center", foreground="white")
+        explanation_label2.pack(pady=10)
+
+        explanation_label3 = ttk.Label(home_frame, text="Need some extra motivation? Scan the QR code below to register and find a buddy!", font=("Helvetica", 15, "bold"), anchor="center", justify="center", foreground="white")
+        explanation_label3.pack(pady=10)
+
+     
+
+        # Load and resize the image
+        original_image = PhotoImage(file="Application\\Assets\\Images\\frame.png")
+        resized_image = original_image.subsample(12, 12)  # Adjust the subsample values as needed
+
+        # Create a label for the resized image
+        image_label = ttk.Label(home_frame, image=resized_image)
+        image_label.image = resized_image  # To prevent image from being garbage collected
+        image_label.pack(pady=20)
+    
 
     def create_leaderboard_page(self):
         leaderboard_frame = ttk.Frame(self.notebook)
