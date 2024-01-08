@@ -4,7 +4,6 @@ import numpy as np
 import math
 # import pyttsx3
 import pygame
-import database
 import time
 
 mp_drawing = mp.solutions.drawing_utils
