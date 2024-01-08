@@ -118,7 +118,7 @@ def pushUpCounter():
             frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
             timeSpent = time.time() - start_time
-            timeLeft = 30 - timeSpent #Time left for attempt
+            timeLeft = defines.TIMER - timeSpent #Time left for attempt
 
             # frame = frame[0:820, 0:600]
             # Recolor image to RGB
