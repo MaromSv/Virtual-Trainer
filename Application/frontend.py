@@ -202,7 +202,11 @@ class VirtualTrainerApp:
 
         if reps > minLeaderBoard or lengthLeaderboard < 10:
             print("You made it onto the leaderboard") 
+
+            process = subprocess.Popen("C:\\PROGRA~1\\COMMON~1\\MICROS~1\\ink\\tabtip.exe", shell=True)
             name = self.get_input_name()
+            process.kill()
+
             self.leaderboard.insert_new_entry(name, reps)
             print(self.leaderboard.get_leaderboard_data)
             self.refresh_page()
