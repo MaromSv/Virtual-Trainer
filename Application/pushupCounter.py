@@ -85,7 +85,7 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
     if leftAngle > 155 and rightAngle > 155:
         if stage == "middle":
             print("go lower")
-            playSound("Application\Assets\Audio\goLower.mp3")
+            play_sound("Application\Assets\Audio\goLower.mp3")
         stage = "up"
 
     if leftAngle < 100 and rightAngle < 100 and stage =='up': 
@@ -98,22 +98,20 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
             print(counter)
             audioPath = f"Application\\Assets\\Audio\\numbers\\{str(counter)}.mp3"
             try:
-                playSound(audioPath)
+                play_sound(audioPath)
             except:
                 print("")
         else:
             print("Keep Your Back Straight")
-            playSound("Application\Assets\Audio\keepBackStraightAudio.mp3")
+            play_sound("Application\Assets\Audio\keepBackStraightAudio.mp3")
     return stage, counter
 
 def pushUpCounter():
-    process = Process(target=play_background_music)
-    process.start()
-    play_background_music()
-    try:
-        cap = cv2.VideoCapture(defines.CAPTURE_CAMERA_ID, cv2.CAP_DSHOW)
-    except:
-         cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    my_thread = threading.Thread(target=play_background_music, name="MyThread")
+    my_thread.start()
+
+    cap = cv2.VideoCapture(defines.CAPTURE_CAMERA_ID, cv2.CAP_DSHOW)
+
     
 
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, defines.CAPTURE_FRAME_WIDTH)
@@ -232,12 +230,9 @@ def pushUpCounter():
             if (timeLeft < 0):
                 cap.release()
                 cv2.destroyAllWindows()
-                process.join()
+                my_thread.join()
                 return counter
 
             if cv2.waitKey(10) & 0xFF == ord('q'):
                 break
-
-        cap.release()
-        cv2.destroyAllWindows()
 
