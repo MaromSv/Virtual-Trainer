@@ -4,7 +4,7 @@ import mediapipe as mp
 import numpy as np
 import pygame
 import time
-from multiprocessing import Process
+import threading
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -66,7 +66,7 @@ def play_background_music(volume=0.5):
     pygame.mixer.init()
     pygame.mixer.music.load('Application\\Assets\\Audio\\li-jali-cucu-8466.mp3')
     pygame.mixer.music.set_volume(volume)
-    pygame.mixer.music.play(-1)  # -1 means loop indefinitely
+    pygame.mixer.music.play()  # -1 means loop indefinitely
 
 # def text_to_speech(text):
 #     # Initialize the TTS engine
