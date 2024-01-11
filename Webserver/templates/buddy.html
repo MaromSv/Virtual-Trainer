@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Bootstrap Responsive Web Application Template</title>
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pace-theme-minimal.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfect-scrollbar.css') }}" />
+
+    <!-- core css -->
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet">
+
+    <script src="buddy.js"></script>
+    
+    <!-- icon-->
+    <link rel="icon" href="{{ url_for('static', filename='VirtualTrainerLogo-removebg-preview.png') }}">
+
+</head>
+
+<body>
+    <div class="app">
+        <div class="layout">
+            <!-- Page Container START -->
+            <div class="page-container">
+                
+                <!-- Header START -->
+                <header>
+                    <div class="header-container">
+                        <nav>
+                            <div class="logo">
+                                
+                                <h1><img src="{{ url_for('static', filename='VirtualTrainerLogo.png') }}" alt ="VT_Logo" width="10%" height="10%">Find a Buddy</h1>
+                            </div>
+                            <div class="menu">
+                                <ul>
+                                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                                    <li><a href="{{ url_for('map') }}">Map</a></li>
+                                    <li><a href="{{ url_for('buddy') }}">Find a Buddy</a></li>
+                                    <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </header>
+                <!-- Header END -->
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <!-- <div class="page-title">
+                            <h4>Personal Info</h4>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-heading border bottom">
+                                        <h4 class="card-title">Current Buddy{{unga}}</h4>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="mrg-top-40">
+                                            <div class="row">
+                                                <div class="col-md-8 ml-auto mr-auto">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Email: {{email}}</label>
+                                                                    <label id="email_current_buddy"></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>First Name: {{first_name}}</label>
+                                                                    <label id="first_name_current_buddy"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Last Name: {{last_name}}</label>
+                                                                    <label id="last_name_current_buddy"></label>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Age: {{age}}</label>
+                                                                    <label id="age_current_buddy"></label>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Location: {{location}}</label>
+                                                                    <label id="location_current_buddy"></label>
+                               
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Gender: {{gender}}</label>
+                                                                    <label id="gender_current_buddy"></label>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Experience: {{experience}}</label>
+                                                                    <label id="experience_current_buddy"></label>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Common days available: {{common_days}}</label>
+                                                                    <label id="days_available_current_buddy"></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-heading border bottom">
+                                        <h4 class="card-title">Find a Buddy Form</h4>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="mrg-top-40">
+                                            <div class="row">
+                                                <div class="col-md-8 ml-auto mr-auto">
+                                                    <form action="{{url_for('buddy_form')}}" method="POST">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Days available:</label><br>
+                                                                    <input class="days_available" type="checkbox" id="day1" name="days_available_enter" value="Monday">
+                                                                    <label for="day1"> Monday</label><br>
+                                                                    <input class="days_available" type="checkbox" id="day2" name="days_available_enter" value="Tuesday">
+                                                                    <label for="day2"> Tuesday</label><br>
+                                                                    <input class="days_available" type="checkbox" id="day3" name="days_available_enter" value="Wednesday">
+                                                                    <label for="day3"> Wednesday</label><br>
+                                                                    <input class="days_available" type="checkbox" id="day4" name="days_available_enter" value="Thursday">
+                                                                    <label for="day4"> Thursday</label><br>
+                                                                    <input class="days_available" type="checkbox" id="day5" name="days_available_enter" value="Friday">
+                                                                    <label for="day5"> Friday</label><br>
+                                                                    <input class="days_available" type="checkbox" id="day6" name="days_available_enter" value="Saturday">
+                                                                    <label for="day6"> Saturday</label><br>
+                                                                    <input class="days_available" type="checkbox" id="day7" name="days_available_enter" value="Sunday">
+                                                                    <label for="day7"> Sunday</label><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Gender Preference:</label><br>
+                                                                    <input class="gender_preference" type="radio" id="gender_pref1" name="gender_preference_enter" value="Same">
+                                                                    <label for="gender_pref1"> Same Gender</label><br>
+                                                                    <input class="gender_preference" type="radio" id="gender_pref2" name="gender_preference_enter" value="Any">
+                                                                    <label for="gender_pref2"> Any</label><br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Experience Preference:</label><br>
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref1" name="experience_preference_enter" value="Beginner">
+                                                                    <label for="exp_pref1"> Beginner</label><br>
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref2" name="experience_preference_enter" value="Intermediate">
+                                                                    <label for="exp_pref2"> Intermediate</label><br>
+                                                                    <input class="experience_preference" type="checkbox" id="exp_pref3" name="experience_preference_enter" value="Advanced">
+                                                                    <label for="exp_pref3"> Advanced</label><br>                                                        
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Location Preference:</label><br>
+                                                                    <input class="location_preference" type="radio" id="loc_pref1" name="location_preference_enter" value="Campus">
+                                                                    <label for="loc_pref1"> Campus</label><br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Age Group Preference:</label><br>
+                                                                    <input class="age_preference" type="radio" id="age_pref1" name="age_preference_enter" value="Similar">
+                                                                    <label for="age_pref1"> Same age group</label><br>
+                                                                    <input class="age_preference" type="radio" id="age_pref2" name="age_preference_enter" value="Any">
+                                                                    <label for="age_pref1"> Any age group</label><br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-xs-6">
+                                                                <div class="text-right mrg-top-5">
+                                                                    <button onclick="Find_Buddy()" type="submit" class="btn btn-primary">Submit Form</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <!-- Content Wrapper END -->
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+    <script src="buddy.js"></script>
+</body>
+
+</html>
