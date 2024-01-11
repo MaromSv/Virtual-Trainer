@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 # import sqlite_web
 import requests
 import json
@@ -19,7 +19,7 @@ import requests
 
 # url = "http://danick.triantis.nl:8080/leaderboard/query/?sql=SELECT+*+FROM+users;"
 
-current_userid = 0
+# current_userid = 0
 
 # For Login page
 
@@ -34,14 +34,13 @@ def get_password(email):
     return password_db
 
 def get_userid(email):
-    global current_userid
     email.replace("@", "%40")
     url="http://danick.triantis.nl:8080/users/query/?ordering=&export_json=&sql=SELECT+userid+FROM+%22users%22+WHERE+email+%3D%3D+%22{}%22".format(email)
     x = requests.get(url)
     if x.text == "[]":
         return 0
     data = json.loads(x.text)[0]["userid"]
-    current_userid = data
+    session['userid'] = data
 
 
 # For signup page
@@ -163,7 +162,7 @@ def find_common_days(current_days_available,buddy_days_available):
     return common_days
 
 def find_buddy(userid):
-    url = 'http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_json=&sql=SELECT+first_name%2C+last_name%2C+age%2C+gender%2C+experience%2C+location+FROM+%22Personal_Form%22+where+userid+%3D+{}'.format(current_userid)
+    url = 'http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_json=&sql=SELECT+first_name%2C+last_name%2C+age%2C+gender%2C+experience%2C+location+FROM+%22Personal_Form%22+where+userid+%3D+{}'.format(session['userid'])
     x = requests.get(url)
     data = json.loads(x.text)
     # current_first_name = data[0]["first_name"]
@@ -213,7 +212,7 @@ def find_buddy(userid):
 
     #Remove yourself from possible buddies:
     for index, buddy in enumerate(possibleBuddies):
-            if buddy[0] == current_userid:
+            if buddy[0] == session['userid']:
                 badBuddyIndicies.append(index)
 
     #Remove all possible buddies that dont abide by gender requirement
@@ -294,6 +293,7 @@ def find_buddy(userid):
 
 
 app = Flask(__name__,template_folder='templates',static_folder='static')
+app.secret_key = 'BAD_SECRET_KEY'
 
 @app.route('/')
 def index():
@@ -305,7 +305,7 @@ def signup():
 
 @app.route('/home')
 def home():
-    url = 'http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_json=&sql=SELECT+first_name%2C+last_name%2C+age%2C+gender%2C+experience%2C+location+FROM+%22Personal_Form%22+where+userid+%3D+{}'.format(current_userid)
+    url = 'http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_json=&sql=SELECT+first_name%2C+last_name%2C+age%2C+gender%2C+experience%2C+location+FROM+%22Personal_Form%22+where+userid+%3D+{}'.format(session['userid'])
     x = requests.get(url)
     data = json.loads(x.text)
     first_name = data[0]["first_name"]
@@ -314,9 +314,6 @@ def home():
     location = data[0]["location"]
     gender = data[0]["gender"]
     experience = data[0]["experience"]
-
-
-    print(current_userid)
     return render_template('home.html', first_name = first_name, last_name = last_name, age = age, gender = gender, experience = experience, location = location)
 
 @app.route('/map')
@@ -325,7 +322,7 @@ def map():
 
 @app.route('/buddy')
 def buddy():
-    url = 'http://danick.triantis.nl:8080/Current_Buddy/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22Current_Buddy%22+where+userid+%3D+{}+'.format(current_userid)
+    url = 'http://danick.triantis.nl:8080/Current_Buddy/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22Current_Buddy%22+where+userid+%3D+{}+'.format(session['userid'])
     x = requests.get(url)
     data = json.loads(x.text)
     if data == []:
@@ -404,7 +401,7 @@ def personal_form():
         gender = gender[0]
         experience = experience[0]
         location = location[0]
-        update_personal_info(current_userid,first_name,last_name,age,gender,experience,location)
+        update_personal_info(session['userid'],first_name,last_name,age,gender,experience,location)
         return redirect(url_for('home'))
     
 @app.route('/buddy_form', methods=['POST'])
@@ -422,8 +419,8 @@ def buddy_form():
         location_preference = location_preference[0]
         experience_preference = ','.join(experience_preference)
         days_available = ','.join(days_available)
-        insert_buddy_form(current_userid,days_available,gender_preference,age_preference,experience_preference,location_preference)
-        find_buddy(current_userid)
+        insert_buddy_form(session['userid'],days_available,gender_preference,age_preference,experience_preference,location_preference)
+        find_buddy(session['userid'])
         return redirect(url_for('buddy'))
 
 
