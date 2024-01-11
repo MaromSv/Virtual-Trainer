@@ -65,6 +65,7 @@ def play_background_music(volume=0.5):
     pygame.mixer.init()
     pygame.mixer.music.load('Application\\Assets\\Audio\\li-jali-cucu-8466.mp3')
     pygame.mixer.music.set_volume(volume)
+    pygame.mixer.music.play(-1)  # -1 means loop indefinitely
 
 # def text_to_speech(text):
 #     # Initialize the TTS engine
