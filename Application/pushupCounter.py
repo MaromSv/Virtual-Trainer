@@ -107,7 +107,11 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
 
 def pushUpCounter():
     play_background_music()
-    cap = cv2.VideoCapture(defines.CAPTURE_CAMERA_ID, cv2.CAP_DSHOW)
+    try:
+        cap = cv2.VideoCapture(defines.CAPTURE_CAMERA_ID, cv2.CAP_DSHOW)
+    except:
+         cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    
 
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, defines.CAPTURE_FRAME_WIDTH)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, defines.CAPTURE_FRAME_HEIGHT)
