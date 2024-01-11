@@ -93,6 +93,9 @@ class Leaderboard:
         """
         result = self.execute_query("SELECT+score+FROM+leaderboard+ORDER+BY+score+DESC+LIMIT+1+OFFSET+9")
 
+        if len(result) == 0:
+            return 0
+
         return result[0]["score"]
     
 # leaderboard = Leaderboard("http://danick.triantis.nl:8080/leaderboard")
