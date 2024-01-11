@@ -4,6 +4,7 @@ import mediapipe as mp
 import numpy as np
 import pygame
 import time
+from multiprocessing import Process
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -106,6 +107,8 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
     return stage, counter
 
 def pushUpCounter():
+    process = Process(target=play_background_music)
+    process.start()
     play_background_music()
     try:
         cap = cv2.VideoCapture(defines.CAPTURE_CAMERA_ID, cv2.CAP_DSHOW)
@@ -229,6 +232,7 @@ def pushUpCounter():
             if (timeLeft < 0):
                 cap.release()
                 cv2.destroyAllWindows()
+                process.join()
                 return counter
 
             if cv2.waitKey(10) & 0xFF == ord('q'):
