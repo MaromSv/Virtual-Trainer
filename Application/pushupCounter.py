@@ -106,6 +106,9 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
     return stage, counter
 
 def pushUpCounter():
+    play_sound("Application\Assets\Audio\keepBackStraightAudio.mp3")
+    play_sound("Application\Assets\Audio\keepBackStraightAudio.mp3")
+    play_sound("Application\Assets\Audio\keepBackStraightAudio.mp3")
     my_thread = threading.Thread(target=play_background_music, name="MyThread")
     my_thread.start()
 
