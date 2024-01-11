@@ -56,10 +56,15 @@ def on_the_ground(rightThumb, leftThumb, rightHip, leftHip):
     else:
         return False
 
-def playSound(file_path):
+def play_sound(file_path, volume=0.5):
+    sound_effect = pygame.mixer.Sound(file_path)
+    sound_effect.set_volume(volume)
+    sound_effect.play()
+
+def play_background_music(volume=0.5):
     pygame.mixer.init()
-    pygame.mixer.music.load(file_path)
-    pygame.mixer.music.play()
+    pygame.mixer.music.load('Application\\Assets\\Audio\\li-jali-cucu-8466.mp3')
+    pygame.mixer.music.set_volume(volume)
 
 # def text_to_speech(text):
 #     # Initialize the TTS engine
@@ -100,6 +105,7 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
     return stage, counter
 
 def pushUpCounter():
+    play_background_music()
     cap = cv2.VideoCapture(defines.CAPTURE_CAMERA_ID, cv2.CAP_DSHOW)
 
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, defines.CAPTURE_FRAME_WIDTH)
