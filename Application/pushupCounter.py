@@ -57,16 +57,15 @@ def on_the_ground(rightThumb, leftThumb, rightHip, leftHip):
     else:
         return False
 
-def play_sound(file_path, volume=0.5):
+def play_sound(file_path):
     sound_effect = pygame.mixer.Sound(file_path)
-    sound_effect.set_volume(volume)
     sound_effect.play()
 
-def play_background_music(volume=0.5):
+def play_background_music(volume=0.01):
     pygame.mixer.init()
     pygame.mixer.music.load('Application\\Assets\\Audio\\li-jali-cucu-8466.mp3')
     pygame.mixer.music.set_volume(volume)
-    pygame.mixer.music.play()  # -1 means loop indefinitely
+    pygame.mixer.music.play() 
 
 # def text_to_speech(text):
 #     # Initialize the TTS engine
