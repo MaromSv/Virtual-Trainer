@@ -67,20 +67,11 @@ def play_background_music(volume=0.01):
     pygame.mixer.music.set_volume(volume)
     pygame.mixer.music.play() 
 
-# def text_to_speech(text):
-#     # Initialize the TTS engine
-#     engine = pyttsx3.init()
+def overlay_transparent_color(frame, color):
+    overlay = np.full((frame.shape[0], frame.shape[1], 4), color, dtype='uint8')  # Create colored overlay
+    cv2.addWeighted(overlay, color[3], frame, 1 - color[3], 0, frame)  # Blend with the frame
 
-#     # Set properties (optional)
-#     engine.setProperty('rate', 150)  # Speed of speech
-
-#     # Speak the given text
-#     engine.say(text)
-
-def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround):
-    if onGround: #Code for if we want to make it number of pushups in a row
-        print("Attempt Complete")
-
+def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter):
     if leftAngle > 155 and rightAngle > 155:
         if stage == "middle":
             print("go lower")
@@ -162,30 +153,14 @@ def pushUpCounter():
                 rightHip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x, landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
                 rightThumb = [landmarks[mp_pose.PoseLandmark.LEFT_THUMB.value].x, landmarks[mp_pose.PoseLandmark.LEFT_THUMB.value].y]
                 
-                # print("thumb: " + str(rightThumb[1]))
-                # print("hip: " + str(rightHip[1]))
-                # print("Shoulder: " + str(rightShoulder[1]))
-                print(abs(rightThumb[1] -rightHip[1]) < 0.05)
 
                 # Calculate angle
                 leftAngle = calculate_angle(leftShoulder, leftElbow, leftWrist)
                 rightAngle = calculate_angle(rightShoulder, rightElbow, rightWrist)
                 straightBack = straight_Back(leftShoulder, rightShoulder, rightHip, leftHip)
 
-                # Visualize angles
-                # cv2.putText(image, str(leftAngle), 
-                #             tuple(np.multiply(leftElbow, [640, 480]).astype(int)), 
-                #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-                #                     )
-                # cv2.putText(image, str(rightAngle), 
-                #     tuple(np.multiply(rightElbow, [640, 480]).astype(int)), 
-                #     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-                #         )
-                
-                onGround = on_the_ground(rightThumb, leftThumb, rightHip, leftHip)
-
                 # Curl counter logic
-                stage, counter = pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter, onGround)
+                stage, counter = pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter)
                         
             except:
                 pass
@@ -233,5 +208,8 @@ def pushUpCounter():
                 return counter
 
             if cv2.waitKey(10) & 0xFF == ord('q'):
+                cap.release()
+                cv2.destroyAllWindows()
+                my_thread.join()
                 break
 
