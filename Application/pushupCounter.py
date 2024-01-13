@@ -61,15 +61,12 @@ def play_sound(file_path):
     sound_effect = pygame.mixer.Sound(file_path)
     sound_effect.play()
 
-def play_background_music(volume=0.01):
+def play_background_music(volume=0.3):
     pygame.mixer.init()
-    pygame.mixer.music.load('Application\\Assets\\Audio\\li-jali-cucu-8466.mp3')
+    # pygame.mixer.music.load('Application\\Assets\\Audio\\li-jali-cucu-8466.mp3')
+    pygame.mixer.music.load('Application\\Assets\\Audio\\backgroundMusic.mp3')
     pygame.mixer.music.set_volume(volume)
     pygame.mixer.music.play() 
-
-def overlay_transparent_color(frame, color):
-    overlay = np.full((frame.shape[0], frame.shape[1], 4), color, dtype='uint8')  # Create colored overlay
-    cv2.addWeighted(overlay, color[3], frame, 1 - color[3], 0, frame)  # Blend with the frame
 
 def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter):
     if leftAngle > 155 and rightAngle > 155:

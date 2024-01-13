@@ -132,25 +132,25 @@ class VirtualTrainerApp:
         custom_style = ttk.Style()
         custom_style.configure("TButton", font=("Helvetica", 20))  # Change the font size as needed
 
-        button1 = ttk.Button(workout_frame, text="Chest Workout", command=lambda: self.start_workout("Chest"), takefocus=False, style="TButton")
+        button1 = ttk.Button(workout_frame, text="Chest", command=lambda: self.start_workout("Chest"), takefocus=False, style="TButton")
         button1.pack(pady=20)
 
-        button2 = ttk.Button(workout_frame, text="Cardio Workout", command=lambda: self.start_workout("Cardio"), takefocus=False, style="TButton")
+        button2 = ttk.Button(workout_frame, text="Cardio", command=lambda: self.start_workout("Cardio"), takefocus=False, style="TButton")
         button2.pack(pady=20)
 
-        button3 = ttk.Button(workout_frame, text="Core Workout", command=lambda: self.start_workout("Core"), takefocus=False, style="TButton")
+        button3 = ttk.Button(workout_frame, text="Core", command=lambda: self.start_workout("Core"), takefocus=False, style="TButton")
         button3.pack(pady=20)
 
-        button4 = ttk.Button(workout_frame, text="Legs Workout", command=lambda: self.start_workout("Legs"), takefocus=False, style="TButton")
+        button4 = ttk.Button(workout_frame, text="Legs", command=lambda: self.start_workout("Legs"), takefocus=False, style="TButton")
         button4.pack(pady=20)
 
 
 
 
+
     def get_input_name(self):
-        result = sd.askstring("Name", "Enter your name:")
+        result = sd.askstring("You Made it to the Leaderboard!", "Enter your name:")
         if result:
-            # Do something with the user input (e.g., print it)
             return result
         #TODO:HANDLE ERRORS
 
@@ -213,6 +213,7 @@ class VirtualTrainerApp:
             self.navigate_to_leaderboard()
         else:
             print("You didnt quite make it onto the leaderboard, better luck next time")
+            messagebox.showinfo("Try again!","You didnt quite make it onto the leaderboard, better luck next time")
 
         # except:
         #     print("PushUp Counter failed") #Reps = None
