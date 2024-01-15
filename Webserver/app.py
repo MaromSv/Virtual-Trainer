@@ -293,7 +293,7 @@ def find_buddy(userid):
 
 
 app = Flask(__name__,template_folder='templates',static_folder='static')
-app.config["SESSION_PERMANENT"] = True
+app.config["SESSION_PERMANENT"] = False
 app.secret_key = 'BAD_SECRET_KEY'
 
 @app.route('/')
@@ -306,6 +306,9 @@ def signup():
 
 @app.route('/home')
 def home():
+    if not 'userid' in session:
+        return redirect(url_for('index'))
+
     url = 'http://danick.triantis.nl:8080/Personal_Form/query/?ordering=&export_json=&sql=SELECT+first_name%2C+last_name%2C+age%2C+gender%2C+experience%2C+location+FROM+%22Personal_Form%22+where+userid+%3D+{}'.format(session['userid'])
     x = requests.get(url)
     data = json.loads(x.text)
@@ -319,10 +322,16 @@ def home():
 
 @app.route('/map')
 def map():
+    if not 'userid' in session:
+        return redirect(url_for('index'))
+    
     return render_template('map.html')
 
 @app.route('/buddy')
 def buddy():
+    if not 'userid' in session:
+        return redirect(url_for('index'))
+    
     url = 'http://danick.triantis.nl:8080/Current_Buddy/query/?ordering=&export_json=&sql=SELECT+*+FROM+%22Current_Buddy%22+where+userid+%3D+{}+'.format(session['userid'])
     x = requests.get(url)
     data = json.loads(x.text)
@@ -351,6 +360,9 @@ def buddy():
 
 @app.route('/leaderboard')
 def leaderboard():
+    if not 'userid' in session:
+        return redirect(url_for('index'))
+    
     data = get_leaderboard()
     return render_template('leaderboard.html', results = data)
 
@@ -390,6 +402,8 @@ def signup_form():
     
 @app.route('/personal_form', methods=['POST'])
 def personal_form():
+    if not 'userid' in session:
+        return redirect(url_for('index'))
     first_name = request.form['first_name_enter']
     last_name = request.form['last_name_enter']
     age = request.form['age_enter']
@@ -407,6 +421,8 @@ def personal_form():
     
 @app.route('/buddy_form', methods=['POST'])
 def buddy_form():
+    if not 'userid' in session:
+        return redirect(url_for('index'))
     days_available= request.form.getlist('days_available_enter')
     gender_preference = request.form.getlist('gender_preference_enter')
     experience_preference = request.form.getlist('experience_preference_enter')
