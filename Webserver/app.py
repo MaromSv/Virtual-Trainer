@@ -293,6 +293,7 @@ def find_buddy(userid):
 
 
 app = Flask(__name__,template_folder='templates',static_folder='static')
+app.config["SESSION_PERMANENT"] = True
 app.secret_key = 'BAD_SECRET_KEY'
 
 @app.route('/')
