@@ -199,8 +199,8 @@ class VirtualTrainerApp:
         lengthLeaderboard = len(self.leaderboard.get_leaderboard_data())
         print("Length Leaderboard: " + str(lengthLeaderboard))
         # try:
-
-        if reps > minLeaderBoard or lengthLeaderboard < 10:
+    
+        if reps > minLeaderBoard or (lengthLeaderboard < 10 and reps > 0 ):
             print("You made it onto the leaderboard") 
 
             process = subprocess.Popen("C:\\PROGRA~1\\COMMON~1\\MICROS~1\\ink\\tabtip.exe", shell=True)
