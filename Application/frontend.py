@@ -208,7 +208,7 @@ class VirtualTrainerApp:
             process.kill()
 
             self.leaderboard.insert_new_entry(name, reps)
-            print(self.leaderboard.get_leaderboard_data)
+            print(self.leaderboard.get_leaderboard_data())
             self.refresh_page()
             self.navigate_to_leaderboard()
         else:
