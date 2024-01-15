@@ -61,7 +61,7 @@ def play_sound(file_path):
     sound_effect = pygame.mixer.Sound(file_path)
     sound_effect.play()
 
-def play_background_music(volume=0.3):
+def play_background_music(volume=0.05):
     pygame.mixer.init()
     # pygame.mixer.music.load('Application\\Assets\\Audio\\li-jali-cucu-8466.mp3')
     pygame.mixer.music.load('Application\\Assets\\Audio\\backgroundMusic.mp3')
@@ -95,7 +95,7 @@ def pushUpLogic(leftAngle, rightAngle, stage, straightBack, counter):
 
 def pushUpCounter():
     my_thread = threading.Thread(target=play_background_music, name="MyThread")
-    my_thread.start()
+    
 
     cap = cv2.VideoCapture(defines.CAPTURE_CAMERA_ID, cv2.CAP_DSHOW)
 
@@ -109,7 +109,7 @@ def pushUpCounter():
     stage = None
     straightBack = None
     start_time = time.time()
-    
+    my_thread.start()
     ## Setup mediapipe instance
     with mp_pose.Pose(min_detection_confidence=0.8, min_tracking_confidence=0.8) as pose:
         while cap.isOpened():
@@ -117,7 +117,7 @@ def pushUpCounter():
             frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
             timeSpent = time.time() - start_time
-            timeLeft = defines.TIMER - timeSpent #Time left for attempt
+            timeLeft = (defines.TIMER - timeSpent + 2 )#Time left for attempt, 2 s for startup
 
             # frame = frame[0:820, 0:600]
             # Recolor image to RGB
