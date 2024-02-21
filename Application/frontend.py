@@ -89,7 +89,7 @@ class VirtualTrainerApp:
 
     def create_leaderboard_page(self):
         leaderboard_frame = ttk.Frame(self.notebook)
-        self.notebook.add(leaderboard_frame, text="Leaderboard")
+        self.notebook.add(leaderboard_frame, text="Leaderboards")
 
         # Leaderboard Page Widgets
         leaderboard_label = ttk.Label(leaderboard_frame, text="Leaderboard", font=("Helvetica", 30, "bold"))
@@ -122,7 +122,7 @@ class VirtualTrainerApp:
 
     def create_workout_page(self):
         workout_frame = ttk.Frame(self.notebook)
-        self.notebook.add(workout_frame, text="Start workout")
+        self.notebook.add(workout_frame, text="Video Workouts")
 
         # Workout Page Widgets
         label = ttk.Label(workout_frame, text="Select a Workout", font=("Helvetica", 30, "bold"))
